@@ -73,11 +73,11 @@ Las instrucciones de instalación se incorporarán cuando se encuentre disponibl
 Proyecto en etapa de planificación y definición de alcance.
 
 ## 👩‍💻 Integrantes
--
--
+- Ayelen Masseroni
+- Gabriel Torres
 
 ## Tutor
--
+- Santiago Fonzo
 
 ## Uso académico
 *Proyecto realizado en el marco del Trabajo Final de la Tecnicatura Universitaria en Programación.*
