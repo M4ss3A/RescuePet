@@ -1,17 +1,13 @@
 # 🐾 RescuePet
 Plataforma de gestión de rescate, tránsito y adopción responsable de animales.
---
+
 ## 📌 Sobre el proyecto
 Rescue Pet es una plataforma web orientada a facilitar la gestión del rescate y la adopción responsable de animales.
-
 El proyecto surge ante la necesidad de centralizar información que frecuentemente se encuentra distribuida entre diferentes medios, como redes sociales, mensajería y registros independientes.
-
 La plataforma busca acompañar el proceso desde el registro de un animal rescatado hasta su adopción y posterior seguimiento.
---
 
 ## 🎯 Objetivo
 Desarrollar una plataforma que permita gestionar animales rescatados y sus procesos de adopción, facilitando la organización de la información para rescatistas y protectoras y el acceso a animales disponibles para potenciales adoptantes.
---
 
 ## ✨ Funcionalidades principales
 - Gestión de usuarios y roles.
@@ -24,14 +20,12 @@ Desarrollar una plataforma que permita gestionar animales rescatados y sus proce
 - Registro de adopciones.
 - Seguimiento posterior a la adopción.
 - Panel básico de información y estadísticas.
---
 
 ## 👥 Roles
 - Administrador.
 - Rescatista o protectora.
 - Hogar de tránsito.
 - Adoptante.
---
 
 ## 🛠️ Tecnologías
 
@@ -61,7 +55,7 @@ Desarrollar una plataforma que permita gestionar animales rescatados y sus proce
 
 ### Despliegue
 El servicio cloud definitivo se seleccionará durante la etapa de arquitectura, considerando su compatibilidad con el backend y la base de datos elegida.
---
+
 ## 📁 Estructura del repositorio
 ```text
 rescue-pet/
@@ -71,31 +65,22 @@ rescue-pet/
 ├── docs/
 └── README.md
 ```
---
 
 ## Instalación
 Las instrucciones de instalación se incorporarán cuando se encuentre disponible la primera versión ejecutable del backend y del frontend.
---
 
 ## 🚧 Estado del proyecto
-🟡 Etapa de análisis y definición.
---
-
-## 📚 Documentación
-La documentación, los diagramas, los avances y las entregas del proyecto
-se encuentran centralizados en la carpeta `/docs`.
---
+Proyecto en etapa de planificación y definición de alcance.
 
 ## 👩‍💻 Integrantes
 -
 -
---
 
 ## Tutor
 -
 
 ## Uso académico
-**Proyecto realizado en el marco del Trabajo Final de la Tecnicatura Universitaria en Programación.**
+*Proyecto realizado en el marco del Trabajo Final de la Tecnicatura Universitaria en Programación.*
 
 
 
