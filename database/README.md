@@ -1,3 +1,4 @@
 # Database
-Recursos relacionados con la base de datos de RescuePet.
-La estructura y los recursos de esta sección se definirán durante la etapa de diseño del proyecto.
+
+RescuePet utilizará una base de datos relacional. Durante el desarrollo y las pruebas locales se utilizará H2, mientras que la versión desplegada utilizará MySQL.
+El acceso a los datos se realizará desde el backend mediante Spring Data JPA y Hibernate.
