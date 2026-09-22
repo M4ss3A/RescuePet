@@ -1,10 +1,3 @@
-# Docs
-Recursos y documentación técnica del proyecto RescuePet. En esta sección se adjuntarán los informes en PDF que explican la estructura del código, decisiones de diseño y los avances del desarrollo.
-
-La descripción general del proyecto, las tecnologías y la estructura del repositorio se encuentran en el [README principal](../README.md).
-
-## Entregas
-
 ### Primera entrega
 
 * [Informe presentado en PDF](./RescuePet_Primera_Entrega.pdf)
@@ -70,15 +63,6 @@ Durante el desarrollo y las pruebas se utilizarán datos ficticios. También se 
 
 El proyecto tendrá en cuenta los principios generales de la [Ley N.º 25.326 de Protección de Datos Personales](https://www.argentina.gob.ar/aaip/datospersonales).
 
-## Segunda entrega
 
-La segunda entrega incluirá:
-
-* Arquitectura general del sistema.
-* Listado definitivo de módulos.
-* Entidades, atributos y relaciones.
-* Diagrama de entidad-relación.
-* Esquema inicial de la base de datos.
-* Cronograma detallado por tarea y responsable.
 
 
