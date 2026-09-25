@@ -1,4 +1,4 @@
-### Primera entrega
+# Primera entrega
 
 * [Informe presentado en PDF](./RescuePet_Primera_Entrega.pdf)
 * Estado: propuesta revisada por el tutor.
