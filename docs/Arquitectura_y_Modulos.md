@@ -43,6 +43,20 @@ MySQL
 El backend desarrollado con Spring Boot será desplegado en Railway y el frontend será publicado en Netlify.
 
 
+### Justificación de las decisiones tecnicas
+
+* **Arquitectura cliente-servidor por capas**: Permite separar la interfaz, la lógica de negocio y el acceso a los datos, facilitando el mantenimiento, las pruebas y ladistribución del trabajo entre los integrantes. 
+* **API REST y JSON**: Permite que el frontend y el backend se desarrollen de forma independiente y se comuniquen mediante solicitudes HTTP. 
+* **HTML, CSS, JavaScript y TypeScript**: Son tecnologías trabajadas durante la carrera. TypeScript agrega tipado y permite detectar errores antes de ejecutar la aplicación. 
+* **Java y Spring Boot**: Permiten desarrollar una API con validaciones, inyección de dependencias y una organización por controladores, servicios y repositorios.
+* **Spring Data JPA e Hibernate**: Simplifican la persistencia y el mapeo entre las entidades Java y las tablas de la base de datos.
+* **Modelo relacional**: Los datos poseen una estructura definida y relaciones importantes entre usuarios, animales, rescates, solicitudes, adopciones y seguimientos. 
+* **H2 y MySQL**: H2 facilita el desarrollo y las pruebas locales sin configurar un servidor. MySQL proporciona persistencia para la versión desplegada y es compatible con el modelo relacional elegido. 
+* **Railway y Netlify**: Permiten desplegar el backend y el frontend sin administrar manualmente un servidor completo. 
+* **Swagger/OpenAPI y Postman**: Facilitarán la documentación y las pruebas de los endpoints de la API. 
+* **Git y GitHub**: Permiten mantener el proyecto centralizado, registrar los cambios y colaborar mediante un único repositorio. 
+
+
 ## Modulos del sistema
 
 Organizados por prioridad.
