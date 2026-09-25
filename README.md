@@ -31,7 +31,7 @@ Desarrollar una plataforma que permita gestionar animales rescatados y sus proce
 
 ### Backend
 - Java.
-- Spring / Spring Boot.
+- Spring Boot.
 - API REST.
 - JPA / Hibernate.
 - Spring Data JPA.
@@ -49,13 +49,15 @@ Desarrollar una plataforma que permita gestionar animales rescatados y sus proce
 
 - Modelo de base de datos relacional.
 - H2 para desarrollo y pruebas locales.
-- Motor definitivo a seleccionar durante el diseño técnico.
+- MySQL para la version desplegada.
 - Postman para pruebas de la API.
 - Git y GitHub para control de versiones.
 
 ### Despliegue
-El servicio cloud definitivo se seleccionará durante la etapa de arquitectura, considerando su compatibilidad con el backend y la base de datos elegida.
 
+- Backend y base de datos MySQL en Railway.
+- Frontend en Netlify.
+  
 ## 📁 Estructura del repositorio
 ```text
 rescue-pet/
@@ -70,7 +72,7 @@ rescue-pet/
 Las instrucciones de instalación se incorporarán cuando se encuentre disponible la primera versión ejecutable del backend y del frontend.
 
 ## 🚧 Estado del proyecto
-Proyecto en etapa de planificación y definición de alcance.
+Proyecto en etapa de análisis y diseño correspondiente a la segunda entrega. La implementación comenzará después de la aprobación del tutor.
 
 ## 👩‍💻 Integrantes
 - Ayelen Masseroni
