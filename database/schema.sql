@@ -61,3 +61,14 @@ CREATE TABLE fotos_animal (
     CONSTRAINT fk_foto_animal
         FOREIGN KEY (animal_id) REFERENCES animales(id)
 );
+
+CREATE TABLE registros_sanitarios (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    animal_id BIGINT NOT NULL,
+    tipo VARCHAR(50) NOT NULL,
+    fecha DATE NOT NULL,
+    descripcion TEXT NOT NULL,
+    veterinario VARCHAR(150),
+    CONSTRAINT fk_registro_sanitario_animal
+        FOREIGN KEY (animal_id) REFERENCES animales(id)
+);
