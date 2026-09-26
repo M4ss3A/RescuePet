@@ -96,3 +96,35 @@ CREATE TABLE asignaciones_transito (
     CONSTRAINT fk_asignacion_hogar
         FOREIGN KEY (hogar_transito_id) REFERENCES hogares_transito(id)
 );
+
+CREATE TABLE publicaciones (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    animal_id BIGINT NOT NULL,
+    autor_id BIGINT NOT NULL,
+    titulo VARCHAR(150) NOT NULL,
+    descripcion TEXT NOT NULL,
+    fecha_publicacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    estado VARCHAR(30) NOT NULL,
+    CONSTRAINT fk_publicacion_animal
+        FOREIGN KEY (animal_id) REFERENCES animales(id),
+    CONSTRAINT fk_publicacion_autor
+        FOREIGN KEY (autor_id) REFERENCES usuarios(id)
+);
+
+CREATE TABLE solicitudes_adopcion (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    publicacion_id BIGINT NOT NULL,
+    adoptante_id BIGINT NOT NULL,
+    fecha_solicitud DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    estado VARCHAR(30) NOT NULL,
+    tipo_vivienda VARCHAR(50) NOT NULL,
+    tiene_patio BOOLEAN NOT NULL,
+    tiene_otros_animales BOOLEAN NOT NULL,
+    experiencia_previa TEXT,
+    motivo TEXT NOT NULL,
+    puntaje_compatibilidad DECIMAL(5,2),
+    CONSTRAINT fk_solicitud_publicacion
+        FOREIGN KEY (publicacion_id) REFERENCES publicaciones(id),
+    CONSTRAINT fk_solicitud_adoptante
+        FOREIGN KEY (adoptante_id) REFERENCES usuarios(id)
+);
