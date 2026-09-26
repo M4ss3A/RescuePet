@@ -128,3 +128,24 @@ CREATE TABLE solicitudes_adopcion (
     CONSTRAINT fk_solicitud_adoptante
         FOREIGN KEY (adoptante_id) REFERENCES usuarios(id)
 );
+
+CREATE TABLE adopciones (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    solicitud_id BIGINT NOT NULL UNIQUE,
+    fecha_adopcion DATE NOT NULL,
+    estado VARCHAR(30) NOT NULL,
+    observaciones TEXT,
+    CONSTRAINT fk_adopcion_solicitud
+        FOREIGN KEY (solicitud_id) REFERENCES solicitudes_adopcion(id)
+);
+
+CREATE TABLE seguimientos (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    adopcion_id BIGINT NOT NULL,
+    fecha DATE NOT NULL,
+    observaciones TEXT,
+    estado_general VARCHAR(100),
+    resultado VARCHAR(100),
+    CONSTRAINT fk_seguimiento_adopcion
+        FOREIGN KEY (adopcion_id) REFERENCES adopciones(id)
+);
