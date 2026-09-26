@@ -72,3 +72,27 @@ CREATE TABLE registros_sanitarios (
     CONSTRAINT fk_registro_sanitario_animal
         FOREIGN KEY (animal_id) REFERENCES animales(id)
 );
+
+CREATE TABLE hogares_transito (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    responsable_id BIGINT NOT NULL,
+    direccion VARCHAR(255) NOT NULL,
+    capacidad INT NOT NULL,
+    disponible BOOLEAN NOT NULL DEFAULT TRUE,
+    observaciones TEXT,
+    CONSTRAINT fk_hogar_responsable
+        FOREIGN KEY (responsable_id) REFERENCES usuarios(id)
+);
+
+CREATE TABLE asignaciones_transito (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    animal_id BIGINT NOT NULL,
+    hogar_transito_id BIGINT NOT NULL,
+    fecha_ingreso DATE NOT NULL,
+    fecha_salida DATE,
+    observaciones TEXT,
+    CONSTRAINT fk_asignacion_animal
+        FOREIGN KEY (animal_id) REFERENCES animales(id),
+    CONSTRAINT fk_asignacion_hogar
+        FOREIGN KEY (hogar_transito_id) REFERENCES hogares_transito(id)
+);
