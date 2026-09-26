@@ -149,3 +149,32 @@ CREATE TABLE seguimientos (
     CONSTRAINT fk_seguimiento_adopcion
         FOREIGN KEY (adopcion_id) REFERENCES adopciones(id)
 );
+
+-- Indices Principales
+
+CREATE INDEX idx_usuario_roles_rol
+    ON usuario_roles (rol_id);
+
+CREATE INDEX idx_animales_estado
+    ON animales (estado);
+
+CREATE INDEX idx_registros_sanitarios_animal_fecha
+    ON registros_sanitarios (animal_id, fecha);
+
+CREATE INDEX idx_hogares_transito_disponible
+    ON hogares_transito (disponible);
+
+CREATE INDEX idx_asignaciones_animal_salida
+    ON asignaciones_transito (animal_id, fecha_salida);
+
+CREATE INDEX idx_publicaciones_estado_fecha
+    ON publicaciones (estado, fecha_publicacion);
+
+CREATE INDEX idx_solicitudes_publicacion_estado
+    ON solicitudes_adopcion (publicacion_id, estado);
+
+CREATE INDEX idx_solicitudes_adoptante_estado
+    ON solicitudes_adopcion (adoptante_id, estado);
+
+CREATE INDEX idx_seguimientos_adopcion_fecha
+    ON seguimientos (adopcion_id, fecha);
