@@ -25,3 +25,39 @@ CREATE TABLE usuario_roles (
     CONSTRAINT fk_usuario_roles_rol
         FOREIGN KEY (rol_id) REFERENCES roles(id)
 );
+
+CREATE TABLE animales (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    especie VARCHAR(50) NOT NULL,
+    raza VARCHAR(100),
+    sexo VARCHAR(20),
+    edad_aproximada INT,
+    tamano VARCHAR(30),
+    descripcion TEXT,
+    estado VARCHAR(30) NOT NULL,
+    fecha_alta DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE rescates (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    animal_id BIGINT NOT NULL UNIQUE,
+    rescatista_id BIGINT NOT NULL,
+    fecha_rescate DATE NOT NULL,
+    ubicacion VARCHAR(255) NOT NULL,
+    descripcion TEXT,
+    CONSTRAINT fk_rescate_animal
+        FOREIGN KEY (animal_id) REFERENCES animales(id),
+    CONSTRAINT fk_rescate_rescatista
+        FOREIGN KEY (rescatista_id) REFERENCES usuarios(id)
+);
+
+CREATE TABLE fotos_animal (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    animal_id BIGINT NOT NULL,
+    url VARCHAR(500) NOT NULL,
+    descripcion VARCHAR(255),
+    es_principal BOOLEAN NOT NULL DEFAULT FALSE,
+    CONSTRAINT fk_foto_animal
+        FOREIGN KEY (animal_id) REFERENCES animales(id)
+);
