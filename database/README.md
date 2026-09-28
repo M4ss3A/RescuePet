@@ -21,3 +21,19 @@ El acceso a los datos se realizará desde el backend mediante Spring Data JPA y 
 - Seguimiento:	id, adopcionId, fecha, observaciones, estadoGeneral, resultado.
 
 Las relaciones y cardinalidades se representarán en el diagrama entidad-relación. El modelo fisico se documentara en el archivo schema.sql.
+
+
+## Índices principales
+
+Se definieron índices para optimizar las consultas más frecuentes del sistema:
+
+- Busqueda de usuarios por email.
+- Consulta de animales segun su estado.
+- Consulta cronológica de registros sanitarios.
+- Búsqueda de hogares de tránsito disponibles.
+- Consulta de asignaciones actuales de cada animal.
+- Listado de publicaciones por estado y fecha.
+- Consulta de solicitudes por publicación, adoptante y estado.
+- Consulta cronológica de los seguimientos de una adopción.
+
+Los campos unicos, como el correo del usuario, el nombre del rol, el rescate asociado a un animal y la solicitud asociada a una adopcion, también generan índices para evitar valores duplicados.
