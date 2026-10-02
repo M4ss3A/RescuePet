@@ -17,7 +17,7 @@ RescuePet utiliza una arquitectura cliente-servidor organizada por capas. El fro
 
 La arquitectura esta compuesta por:
 
-* **Frontend:** interfaz desarrollada con HTML5, CSS3, JavaScript y TypeScript.
+* **Frontend:** interfaz desarrollada con HTML, CSS, JavaScript y TypeScript.
 * **Controller:** recibe las solicitudes HTTP y devolvuelve las respuestas de la API.
 * **Service:** contiene las reglas de negocio y coordina las operaciones del sistema.
 * **Repository:** gestiona el acceso a los datos mediante Spring Data JPA.
