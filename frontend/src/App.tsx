@@ -1,13 +1,22 @@
+import { Routes, Route } from 'react-router-dom'
+import { HomePage } from './pages/HomePage'
+import { LoginPage } from './pages/LoginPage'
+import { RescatistaDashboardPage } from './pages/RescatistaDashboardPage'
+import { NotFoundPage } from './pages/NotFoundPage'
+import { ProtectedRoute } from './components/ProtectedRoute'
+
 function App() {
   return (
-    <main className="p-8">
-      <div className="bg-gradient-to-br from-primary to-primary-dark rounded-2xl p-8 text-white">
-        <h1 className="font-heading font-bold text-3xl">Dale un hogar, + amor + familia</h1>
-        <button className="mt-4 bg-white text-primary-dark rounded-full px-5 py-2 font-medium">
-          Quiero adoptar
-        </button>
-      </div>
-    </main>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/login" element={<LoginPage />} />
+
+      <Route element={<ProtectedRoute allowedRoles={['RESCATISTA']} />}>
+        <Route path="/rescatista" element={<RescatistaDashboardPage />} />
+      </Route>
+
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
   )
 }
 
