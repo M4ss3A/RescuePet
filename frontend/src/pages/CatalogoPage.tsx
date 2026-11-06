@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react'
 import { getAnimalesDisponibles } from '../services/animalService'
 import type { Especie, Tamano } from '../types/animal'
+import { AnimalCard } from '../components/AnimalCard'
 
 const especies: Especie[] = ['Perro', 'Gato', 'Otro']
 const tamanos: Tamano[] = ['Pequeño', 'Mediano', 'Grande']
@@ -48,7 +49,15 @@ export function CatalogoPage() {
         </select>
       </div>
 
-      <p className="font-body text-sm text-ink/70">{animales.length} animales encontrados.</p>
+       {animales.length === 0 ? (
+        <p className="font-body text-sm text-ink/70">No hay animales que coincidan con los filtros.</p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {animales.map((a) => (
+            <AnimalCard key={a.id} animal={a} />
+          ))}
+        </div>
+      )}
     </main>
   )
 }
