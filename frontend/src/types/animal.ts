@@ -13,3 +13,11 @@ export interface Animal {
   estado: EstadoAnimal
   fotoUrl: string
 }
+
+export interface RegistroSalud {
+  id: number
+  tipo: 'VACUNA' | 'TRATAMIENTO' | 'CONSULTA'
+  fecha: string
+  descripcion: string
+  veterinario?: string
+}
