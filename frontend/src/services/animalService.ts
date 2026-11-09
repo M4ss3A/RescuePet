@@ -12,3 +12,8 @@ const animalesMock: Animal[] = [
 export function getAnimalesDisponibles(): Animal[] {
   return animalesMock.filter((a) => a.estado === 'DISPONIBLE')
 }
+
+export function getAnimalById(id: number): Animal | undefined {
+  return animalesMock.find((a) => a.id === id)
+}
+
