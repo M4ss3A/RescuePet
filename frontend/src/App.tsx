@@ -7,6 +7,7 @@ import { LoginPage } from './pages/LoginPage'
 import { RescatistaDashboardPage } from './pages/RescatistaDashboardPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { ProtectedRoute } from './components/ProtectedRoute'
+import { RegisterPage } from './pages/RegisterPage'
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
         <Route path="/catalogo" element={<CatalogoPage />} />
         <Route path="/catalogo/:id" element={<AnimalDetailPage />} />
         <Route path="/login" element={<LoginPage />} />
-
+        <Route path="/registro" element={<RegisterPage />} />
+        
         <Route element={<ProtectedRoute allowedRoles={['RESCATISTA']} />}>
           <Route path="/rescatista" element={<RescatistaDashboardPage />} />
         </Route>
