@@ -1,13 +1,19 @@
 import { useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 
-const navLinks = [
-  { to: '/catalogo', label: 'Catálogo' },
-  { to: '/login', label: 'Iniciar sesión' },
-]
+const navLinks = [{ to: '/catalogo', label: 'Catálogo' }]
 
 export function Header() {
   const [open, setOpen] = useState(false)
+  const { usuario, isAuthenticated, logout } = useAuth()
+  const navigate = useNavigate()
+
+  function handleLogout() {
+    logout()
+    setOpen(false)
+    navigate('/')
+  }
 
   return (
     <header className="bg-white border-b border-surface-muted">
@@ -28,6 +34,19 @@ export function Header() {
               {link.label}
             </NavLink>
           ))}
+
+          {isAuthenticated ? (
+            <>
+              <span className="font-body text-sm text-ink/70">Hola, {usuario?.nombre}</span>
+              <button onClick={handleLogout} className="font-body text-sm text-accent">
+                Cerrar sesión
+              </button>
+            </>
+          ) : (
+            <NavLink to="/login" className="font-body text-sm text-ink">
+              Iniciar sesión
+            </NavLink>
+          )}
         </nav>
 
         <button
@@ -42,15 +61,22 @@ export function Header() {
       {open && (
         <nav className="md:hidden flex flex-col gap-1 px-6 pb-4">
           {navLinks.map((link) => (
-            <NavLink
-              key={link.to}
-              to={link.to}
-              onClick={() => setOpen(false)}
-              className="font-body text-sm text-ink py-2"
-            >
+            <NavLink key={link.to} to={link.to} onClick={() => setOpen(false)} className="font-body text-sm text-ink py-2">
               {link.label}
             </NavLink>
           ))}
+          {isAuthenticated ? (
+            <>
+              <span className="font-body text-sm text-ink/70 py-2">Hola, {usuario?.nombre}</span>
+              <button onClick={handleLogout} className="font-body text-sm text-accent text-left py-2">
+                Cerrar sesión
+              </button>
+            </>
+          ) : (
+            <NavLink to="/login" onClick={() => setOpen(false)} className="font-body text-sm text-ink py-2">
+              Iniciar sesión
+            </NavLink>
+          )}
         </nav>
       )}
     </header>
