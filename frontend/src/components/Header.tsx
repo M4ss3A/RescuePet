@@ -2,12 +2,15 @@ import { useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
-const navLinks = [{ to: '/catalogo', label: 'Catálogo' }]
-
 export function Header() {
   const [open, setOpen] = useState(false)
   const { usuario, isAuthenticated, logout } = useAuth()
   const navigate = useNavigate()
+
+  const navLinks = [
+    { to: '/catalogo', label: 'Catálogo' },
+    ...(usuario?.roles.includes('RESCATISTA') ? [{ to: '/rescatista', label: 'Panel rescatista' }] : []),
+  ]
 
   function handleLogout() {
     logout()
