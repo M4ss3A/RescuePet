@@ -1,5 +1,8 @@
 import type { Animal } from '../types/animal'
 
+// NOTA: mock en memoria — los cambios (alta/edicion/baja) se pierden al recargar
+// la pagina. Se resuelve en el Hito 5, cuando esto pase a consultar la API real.
+
 const animalesMock: Animal[] = [
   { id: 1, nombre: 'Michi', especie: 'Gato', raza: 'Mestizo', edadAproximada: 2, tamano: 'Pequeño', descripcion: 'Tranquilo, le encanta dormir al sol.', estado: 'DISPONIBLE', fotoUrl: 'https://placehold.co/400x300/17A79C/white?text=Michi' },
   { id: 2, nombre: 'Coco', especie: 'Perro', raza: 'Mestizo', edadAproximada: 3, tamano: 'Grande', descripcion: 'Muy jugetón, ideal para casa con patio.', estado: 'DISPONIBLE', fotoUrl: 'https://placehold.co/400x300/0B6F68/white?text=Coco' },

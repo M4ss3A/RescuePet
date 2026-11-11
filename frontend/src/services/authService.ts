@@ -1,4 +1,6 @@
 import type { Usuario, Rol } from '../types/auth'
+// NOTA: mock en memoria — los cambios (alta/edicion/baja) se pierden al recargar
+// la pagina. Se resuelve en el Hito 5, cuando esto pase a consultar la API real.
 
 const usuariosMock: (Usuario & { password: string })[] = [
   { id: 1, nombre: 'Ana Rescatista', email: 'rescatista@rescuepet.com', password: '1234', roles: ['RESCATISTA'] },
