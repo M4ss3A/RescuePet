@@ -17,3 +17,25 @@ export function getAnimalById(id: number): Animal | undefined {
   return animalesMock.find((a) => a.id === id)
 }
 
+export function getAllAnimales(): Animal[] {
+  return animalesMock
+}
+
+let nextAnimalId = animalesMock.length + 1
+
+export function createAnimal(data: Omit<Animal, 'id'>): Animal {
+  const nuevo: Animal = { id: nextAnimalId++, ...data }
+  animalesMock.push(nuevo)
+  return nuevo
+}
+
+export function updateAnimal(id: number, data: Partial<Omit<Animal, 'id'>>): Animal | undefined {
+  const animal = animalesMock.find((a) => a.id === id)
+  if (!animal) return undefined
+  Object.assign(animal, data)
+  return animal
+}
+
+export function darDeBajaAnimal(id: number): void {
+  updateAnimal(id, { estado: 'INACTIVO' })
+}
