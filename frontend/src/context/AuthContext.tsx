@@ -2,6 +2,8 @@ import { createContext, useContext, useState, type ReactNode } from 'react'
 import type { Usuario } from '../types/auth'
 import { login as loginService } from '../services/authService'
 
+const STORAGE_KEY = 'rescuepet_usuario'
+
 interface AuthContextValue {
   usuario: Usuario | null
   isAuthenticated: boolean
@@ -11,17 +13,26 @@ interface AuthContextValue {
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined)
 
+function cargarUsuarioGuardado(): Usuario | null {
+  const guardado = sessionStorage.getItem(STORAGE_KEY)
+  return guardado ? JSON.parse(guardado) : null
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [usuario, setUsuario] = useState<Usuario | null>(null)
+  const [usuario, setUsuario] = useState<Usuario | null>(cargarUsuarioGuardado)
 
   const login = (email: string, password: string) => {
     const encontrado = loginService(email, password)
     if (!encontrado) return false
     setUsuario(encontrado)
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(encontrado))
     return true
   }
 
-  const logout = () => setUsuario(null)
+  const logout = () => {
+    setUsuario(null)
+    sessionStorage.removeItem(STORAGE_KEY)
+  }
 
   return (
     <AuthContext.Provider value={{ usuario, isAuthenticated: usuario !== null, login, logout }}>
