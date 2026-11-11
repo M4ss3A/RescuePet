@@ -8,6 +8,7 @@ import { RescatistaDashboardPage } from './pages/RescatistaDashboardPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { ProtectedRoute } from './components/ProtectedRoute'
 import { RegisterPage } from './pages/RegisterPage'
+import { AnimalFormPage } from './pages/AnimalFormPage'
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
         
         <Route element={<ProtectedRoute allowedRoles={['RESCATISTA']} />}>
           <Route path="/rescatista" element={<RescatistaDashboardPage />} />
+          <Route path="/rescatista/animales/nuevo" element={<AnimalFormPage />} />
+          <Route path="/rescatista/animales/:id/editar" element={<AnimalFormPage />} />
         </Route>
 
         <Route path="*" element={<NotFoundPage />} />
