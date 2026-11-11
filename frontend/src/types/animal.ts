@@ -1,6 +1,6 @@
 export type Especie = 'Perro' | 'Gato' | 'Otro'
 export type Tamano = 'Pequeño' | 'Mediano' | 'Grande'
-export type EstadoAnimal = 'DISPONIBLE' | 'EN_TRANSITO' | 'EN_PROCESO_ADOPCION' | 'ADOPTADO'
+export type EstadoAnimal = 'DISPONIBLE' | 'EN_TRANSITO' | 'EN_PROCESO_ADOPCION' | 'ADOPTADO' | 'INACTIVO'
 
 export interface Animal {
   id: number
@@ -20,4 +20,13 @@ export interface RegistroSalud {
   fecha: string
   descripcion: string
   veterinario?: string
+}
+
+export interface Rescate {
+  id: number
+  animalId: number
+  rescatistaId: number
+  fechaRescate: string
+  ubicacion: string
+  descripcion?: string
 }
