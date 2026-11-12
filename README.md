@@ -68,7 +68,11 @@ rescue-pet/
 ```
 
 ## Instalación
-Las instrucciones de instalación se incorporarán cuando se encuentre disponible la primera versión ejecutable del backend y del frontend.
+
+Cada parte del proyecto tiene sus propias instrucciones:
+
+- **Backend:** ver [backend/README.md](./backend/README.md).
+- **Frontend:** ver [frontend/README.md](./frontend/README.md).
 
 
 ## 👩‍💻 Integrantes
