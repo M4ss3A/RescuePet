@@ -1,7 +1,7 @@
 # Database
 
-RescuePet utilizará una base de datos relacional. Durante el desarrollo y las pruebas locales se utilizará H2, mientras que la versión desplegada utilizará MySQL.
-El acceso a los datos se realizará desde el backend mediante Spring Data JPA y Hibernate.
+RescuePet utilizará una base de datos relacional PostgreSQL, tanto para el desarrollo local como para la versión desplegada.
+El acceso a los datos se realizará desde el backend mediante SQLModel (SQLAlchemy + Pydantic). Ver [Cambios técnicos y justificación](../docs/cambios_tecnicos.md).
 
 
 ## Entidades y atributos principales

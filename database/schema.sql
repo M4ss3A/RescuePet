@@ -1,5 +1,5 @@
 CREATE TABLE usuarios (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     apellido VARCHAR(100) NOT NULL,
     email VARCHAR(150) NOT NULL UNIQUE,
@@ -7,11 +7,11 @@ CREATE TABLE usuarios (
     telefono VARCHAR(30),
     direccion VARCHAR(255),
     activo BOOLEAN NOT NULL DEFAULT TRUE,
-    fecha_registro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    fecha_registro TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE roles (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL UNIQUE,
     descripcion VARCHAR(255)
 );
@@ -27,7 +27,7 @@ CREATE TABLE usuario_roles (
 );
 
 CREATE TABLE animales (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     especie VARCHAR(50) NOT NULL,
     raza VARCHAR(100),
@@ -36,11 +36,11 @@ CREATE TABLE animales (
     tamano VARCHAR(30),
     descripcion TEXT,
     estado VARCHAR(30) NOT NULL,
-    fecha_alta DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    fecha_alta TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE rescates (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     animal_id BIGINT NOT NULL UNIQUE,
     rescatista_id BIGINT NOT NULL,
     fecha_rescate DATE NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE rescates (
 );
 
 CREATE TABLE fotos_animal (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     animal_id BIGINT NOT NULL,
     url VARCHAR(500) NOT NULL,
     descripcion VARCHAR(255),
@@ -63,7 +63,7 @@ CREATE TABLE fotos_animal (
 );
 
 CREATE TABLE registros_sanitarios (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     animal_id BIGINT NOT NULL,
     tipo VARCHAR(50) NOT NULL,
     fecha DATE NOT NULL,
@@ -74,7 +74,7 @@ CREATE TABLE registros_sanitarios (
 );
 
 CREATE TABLE hogares_transito (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     responsable_id BIGINT NOT NULL,
     direccion VARCHAR(255) NOT NULL,
     capacidad INT NOT NULL,
@@ -85,7 +85,7 @@ CREATE TABLE hogares_transito (
 );
 
 CREATE TABLE asignaciones_transito (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     animal_id BIGINT NOT NULL,
     hogar_transito_id BIGINT NOT NULL,
     fecha_ingreso DATE NOT NULL,
@@ -98,12 +98,12 @@ CREATE TABLE asignaciones_transito (
 );
 
 CREATE TABLE publicaciones (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     animal_id BIGINT NOT NULL,
     autor_id BIGINT NOT NULL,
     titulo VARCHAR(150) NOT NULL,
     descripcion TEXT NOT NULL,
-    fecha_publicacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fecha_publicacion TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     estado VARCHAR(30) NOT NULL,
     CONSTRAINT fk_publicacion_animal
         FOREIGN KEY (animal_id) REFERENCES animales(id),
@@ -112,10 +112,10 @@ CREATE TABLE publicaciones (
 );
 
 CREATE TABLE solicitudes_adopcion (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     publicacion_id BIGINT NOT NULL,
     adoptante_id BIGINT NOT NULL,
-    fecha_solicitud DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fecha_solicitud TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     estado VARCHAR(30) NOT NULL,
     tipo_vivienda VARCHAR(50) NOT NULL,
     tiene_patio BOOLEAN NOT NULL,
@@ -127,10 +127,12 @@ CREATE TABLE solicitudes_adopcion (
         UNIQUE (publicacion_id, adoptante_id),
     CONSTRAINT fk_solicitud_publicacion
         FOREIGN KEY (publicacion_id) REFERENCES publicaciones(id),
+    CONSTRAINT fk_solicitud_adoptante
+        FOREIGN KEY (adoptante_id) REFERENCES usuarios(id)
 );
 
 CREATE TABLE adopciones (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     solicitud_id BIGINT NOT NULL UNIQUE,
     fecha_adopcion DATE NOT NULL,
     estado VARCHAR(30) NOT NULL,
@@ -140,7 +142,7 @@ CREATE TABLE adopciones (
 );
 
 CREATE TABLE seguimientos (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     adopcion_id BIGINT NOT NULL,
     fecha DATE NOT NULL,
     observaciones TEXT,
