@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 
 class Animal(SQLModel, table=True):
-    __tablename__ = "animales"
+    __tablename__ = "animales"  # type: ignore
 
     id: int | None = Field(default=None, primary_key=True)
     nombre: str = Field(max_length=100)
@@ -37,7 +37,7 @@ class Animal(SQLModel, table=True):
 class Rescate(SQLModel, table=True):
     """Relación 1:1 con Animal: cada animal tiene un único rescate (animal_id UNIQUE)."""
 
-    __tablename__ = "rescates"
+    __tablename__ = "rescates"  # type: ignore
 
     id: int | None = Field(default=None, primary_key=True)
     animal_id: int = Field(foreign_key="animales.id", unique=True)
@@ -51,7 +51,7 @@ class Rescate(SQLModel, table=True):
 
 
 class FotoAnimal(SQLModel, table=True):
-    __tablename__ = "fotos_animal"
+    __tablename__ = "fotos_animal"  # type: ignore
 
     id: int | None = Field(default=None, primary_key=True)
     animal_id: int = Field(foreign_key="animales.id")
@@ -63,7 +63,7 @@ class FotoAnimal(SQLModel, table=True):
 
 
 class RegistroSanitario(SQLModel, table=True):
-    __tablename__ = "registros_sanitarios"
+    __tablename__ = "registros_sanitarios"  # type: ignore
     __table_args__ = (Index("idx_registros_sanitarios_animal_fecha", "animal_id", "fecha"),)
 
     id: int | None = Field(default=None, primary_key=True)

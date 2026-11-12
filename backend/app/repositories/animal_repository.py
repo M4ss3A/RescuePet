@@ -1,34 +1,24 @@
-from sqlmodel import Session, col, select
+from sqlmodel import col, select
 
+from app.core.base_repository import BaseRepository
 from app.models import Animal, FotoAnimal
 from app.models.enums import EstadoAnimal
 
 
-def listar(session: Session, estado: EstadoAnimal | None = None) -> list[Animal]:
-    consulta = select(Animal).order_by(col(Animal.id))
-    if estado is not None:
-        consulta = consulta.where(col(Animal.estado) == estado)
-    return list(session.exec(consulta).all())
+class AnimalRepository(BaseRepository[Animal]):
+    modelo = Animal
 
+    def listar(self, estado: EstadoAnimal | None = None) -> list[Animal]:
+        consulta = select(Animal).order_by(col(Animal.id))
+        if estado is not None:
+            consulta = consulta.where(col(Animal.estado) == estado)
+        return list(self.session.exec(consulta).all())
 
-def obtener_por_id(session: Session, animal_id: int) -> Animal | None:
-    return session.get(Animal, animal_id)
+    def obtener_foto_principal(self, animal_id: int) -> FotoAnimal | None:
+        consulta = select(FotoAnimal).where(col(FotoAnimal.animal_id) == animal_id, col(FotoAnimal.es_principal))
+        return self.session.exec(consulta).first()
 
-
-def guardar(session: Session, animal: Animal) -> Animal:
-    session.add(animal)
-    session.commit()
-    session.refresh(animal)
-    return animal
-
-
-def obtener_foto_principal(session: Session, animal_id: int) -> FotoAnimal | None:
-    consulta = select(FotoAnimal).where(col(FotoAnimal.animal_id) == animal_id, col(FotoAnimal.es_principal))
-    return session.exec(consulta).first()
-
-
-def guardar_foto(session: Session, foto: FotoAnimal) -> FotoAnimal:
-    session.add(foto)
-    session.commit()
-    session.refresh(foto)
-    return foto
+    def guardar_foto(self, foto: FotoAnimal) -> FotoAnimal:
+        self.session.add(foto)
+        self.session.flush()
+        return foto
