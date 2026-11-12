@@ -30,26 +30,26 @@ Desarrollar una plataforma que permita gestionar animales rescatados y sus proce
 ## 🛠️ Tecnologías
 
 ### Backend
-- Java.
-- Spring Boot.
+- Python.
+- FastAPI.
 - API REST.
-- JPA / Hibernate.
-- Spring Data JPA.
-- DTOs.
-- Arquitectura por capas: Controller, Service y Repository.
+- SQLModel (SQLAlchemy + Pydantic).
+- Esquemas Pydantic para validación de datos de entrada y salida.
+- Arquitectura por capas: Routers, Services y Repositories.
+- Autenticación con JWT.
 - Swagger / OpenAPI.
 
 ### Frontend
-- HTML.
-- CSS.
-- JavaScript.
+- React.
 - TypeScript.
+- Vite.
+- Tailwind CSS.
 
 ### Base de datos y herramientas
 
 - Modelo de base de datos relacional.
-- H2 para desarrollo y pruebas locales.
-- MySQL para la version desplegada.
+- SQLite para desarrollo y pruebas locales.
+- MySQL para la versión desplegada.
 - Postman para pruebas de la API.
 - Git y GitHub para control de versiones.
 
@@ -71,8 +71,6 @@ rescue-pet/
 ## Instalación
 Las instrucciones de instalación se incorporarán cuando se encuentre disponible la primera versión ejecutable del backend y del frontend.
 
-## 🚧 Estado del proyecto
-Proyecto en etapa de análisis y diseño correspondiente a la segunda entrega. La implementación comenzará después de la aprobación del tutor.
 
 ## 👩‍💻 Integrantes
 - Ayelen Masseroni
