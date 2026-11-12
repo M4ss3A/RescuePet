@@ -6,8 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 from app.core.database import create_db_and_tables
 from app.core.seed import cargar_roles
-from app.routers import animales, health
-
+from app.routers import animales, health, hogares_transito, registros_sanitarios, rescates
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -33,3 +32,6 @@ app.add_middleware(
 
 app.include_router(health.router)
 app.include_router(animales.router)
+app.include_router(rescates.router)
+app.include_router(registros_sanitarios.router)
+app.include_router(hogares_transito.router)

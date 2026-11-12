@@ -1,13 +1,13 @@
-from sqlmodel import Session, select
+from sqlmodel import Session, col, select
 
 from app.models import Animal, FotoAnimal
 from app.models.enums import EstadoAnimal
 
 
 def listar(session: Session, estado: EstadoAnimal | None = None) -> list[Animal]:
-    consulta = select(Animal).order_by(Animal.id) # type: ignore
+    consulta = select(Animal).order_by(col(Animal.id))
     if estado is not None:
-        consulta = consulta.where(Animal.estado == estado)
+        consulta = consulta.where(col(Animal.estado) == estado)
     return list(session.exec(consulta).all())
 
 
@@ -23,7 +23,7 @@ def guardar(session: Session, animal: Animal) -> Animal:
 
 
 def obtener_foto_principal(session: Session, animal_id: int) -> FotoAnimal | None:
-    consulta = select(FotoAnimal).where(FotoAnimal.animal_id == animal_id, FotoAnimal.es_principal)
+    consulta = select(FotoAnimal).where(col(FotoAnimal.animal_id) == animal_id, col(FotoAnimal.es_principal))
     return session.exec(consulta).first()
 
 
