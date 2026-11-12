@@ -1,5 +1,5 @@
 CREATE TABLE usuarios (
-    id BIGSERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     apellido VARCHAR(100) NOT NULL,
     email VARCHAR(150) NOT NULL UNIQUE,
@@ -11,14 +11,14 @@ CREATE TABLE usuarios (
 );
 
 CREATE TABLE roles (
-    id BIGSERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL UNIQUE,
     descripcion VARCHAR(255)
 );
 
 CREATE TABLE usuario_roles (
-    usuario_id BIGINT NOT NULL,
-    rol_id BIGINT NOT NULL,
+    usuario_id INTEGER NOT NULL,
+    rol_id INTEGER NOT NULL,
     PRIMARY KEY (usuario_id, rol_id),
     CONSTRAINT fk_usuario_roles_usuario
         FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
@@ -27,7 +27,7 @@ CREATE TABLE usuario_roles (
 );
 
 CREATE TABLE animales (
-    id BIGSERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     especie VARCHAR(50) NOT NULL,
     raza VARCHAR(100),
@@ -40,9 +40,9 @@ CREATE TABLE animales (
 );
 
 CREATE TABLE rescates (
-    id BIGSERIAL PRIMARY KEY,
-    animal_id BIGINT NOT NULL UNIQUE,
-    rescatista_id BIGINT NOT NULL,
+    id SERIAL PRIMARY KEY,
+    animal_id INTEGER NOT NULL UNIQUE,
+    rescatista_id INTEGER NOT NULL,
     fecha_rescate DATE NOT NULL,
     ubicacion VARCHAR(255) NOT NULL,
     descripcion TEXT,
@@ -53,8 +53,8 @@ CREATE TABLE rescates (
 );
 
 CREATE TABLE fotos_animal (
-    id BIGSERIAL PRIMARY KEY,
-    animal_id BIGINT NOT NULL,
+    id SERIAL PRIMARY KEY,
+    animal_id INTEGER NOT NULL,
     url VARCHAR(500) NOT NULL,
     descripcion VARCHAR(255),
     es_principal BOOLEAN NOT NULL DEFAULT FALSE,
@@ -63,8 +63,8 @@ CREATE TABLE fotos_animal (
 );
 
 CREATE TABLE registros_sanitarios (
-    id BIGSERIAL PRIMARY KEY,
-    animal_id BIGINT NOT NULL,
+    id SERIAL PRIMARY KEY,
+    animal_id INTEGER NOT NULL,
     tipo VARCHAR(50) NOT NULL,
     fecha DATE NOT NULL,
     descripcion TEXT NOT NULL,
@@ -74,8 +74,8 @@ CREATE TABLE registros_sanitarios (
 );
 
 CREATE TABLE hogares_transito (
-    id BIGSERIAL PRIMARY KEY,
-    responsable_id BIGINT NOT NULL,
+    id SERIAL PRIMARY KEY,
+    responsable_id INTEGER NOT NULL,
     direccion VARCHAR(255) NOT NULL,
     capacidad INT NOT NULL,
     disponible BOOLEAN NOT NULL DEFAULT TRUE,
@@ -85,9 +85,9 @@ CREATE TABLE hogares_transito (
 );
 
 CREATE TABLE asignaciones_transito (
-    id BIGSERIAL PRIMARY KEY,
-    animal_id BIGINT NOT NULL,
-    hogar_transito_id BIGINT NOT NULL,
+    id SERIAL PRIMARY KEY,
+    animal_id INTEGER NOT NULL,
+    hogar_transito_id INTEGER NOT NULL,
     fecha_ingreso DATE NOT NULL,
     fecha_salida DATE,
     observaciones TEXT,
@@ -98,9 +98,9 @@ CREATE TABLE asignaciones_transito (
 );
 
 CREATE TABLE publicaciones (
-    id BIGSERIAL PRIMARY KEY,
-    animal_id BIGINT NOT NULL,
-    autor_id BIGINT NOT NULL,
+    id SERIAL PRIMARY KEY,
+    animal_id INTEGER NOT NULL,
+    autor_id INTEGER NOT NULL,
     titulo VARCHAR(150) NOT NULL,
     descripcion TEXT NOT NULL,
     fecha_publicacion TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -112,9 +112,9 @@ CREATE TABLE publicaciones (
 );
 
 CREATE TABLE solicitudes_adopcion (
-    id BIGSERIAL PRIMARY KEY,
-    publicacion_id BIGINT NOT NULL,
-    adoptante_id BIGINT NOT NULL,
+    id SERIAL PRIMARY KEY,
+    publicacion_id INTEGER NOT NULL,
+    adoptante_id INTEGER NOT NULL,
     fecha_solicitud TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     estado VARCHAR(30) NOT NULL,
     tipo_vivienda VARCHAR(50) NOT NULL,
@@ -132,8 +132,8 @@ CREATE TABLE solicitudes_adopcion (
 );
 
 CREATE TABLE adopciones (
-    id BIGSERIAL PRIMARY KEY,
-    solicitud_id BIGINT NOT NULL UNIQUE,
+    id SERIAL PRIMARY KEY,
+    solicitud_id INTEGER NOT NULL UNIQUE,
     fecha_adopcion DATE NOT NULL,
     estado VARCHAR(30) NOT NULL,
     observaciones TEXT,
@@ -142,8 +142,8 @@ CREATE TABLE adopciones (
 );
 
 CREATE TABLE seguimientos (
-    id BIGSERIAL PRIMARY KEY,
-    adopcion_id BIGINT NOT NULL,
+    id SERIAL PRIMARY KEY,
+    adopcion_id INTEGER NOT NULL,
     fecha DATE NOT NULL,
     observaciones TEXT,
     estado_general VARCHAR(100),

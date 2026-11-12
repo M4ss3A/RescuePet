@@ -95,9 +95,11 @@ Las tablas, columnas, claves y relaciones no cambian. Solo se adaptó la sintaxi
 
 | MySQL | PostgreSQL |
 |---|---|
-| `BIGINT AUTO_INCREMENT PRIMARY KEY` | `BIGSERIAL PRIMARY KEY` |
+| `BIGINT AUTO_INCREMENT PRIMARY KEY` | `SERIAL PRIMARY KEY` |
 | `DATETIME` | `TIMESTAMPTZ` (fecha y hora con zona horaria) |
 
+
+Además, las claves primarias y foráneas pasaron de `BIGINT` a `INTEGER`. El rango de `INTEGER` (más de 2.000 millones de registros) es suficiente para el volumen esperado del sistema, ocupa la mitad de espacio y es el tipo que SQLModel utiliza por defecto para los identificadores.
 ---
 ## 4. Frontend: React + TypeScript + Vite + Tailwind CSS
 
