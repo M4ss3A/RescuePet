@@ -1,5 +1,7 @@
 # Segunda entrega — Arquitectura y módulos
 
+> **Nota:** este documento corresponde a la segunda entrega tal como fue presentada. Las tecnologías del backend y del frontend se actualizaron después; ver [Cambios técnicos y justificación](./cambios_tecnicos.md). La arquitectura por capas, los módulos y el modelo de datos siguen vigentes.
+
 Esta entrega documentara la arquitectura general de RescuePet, los módulos que formaran parte del sistema y el modelo inicial de la base de datos.
 
 La segunda entrega incluirá:
