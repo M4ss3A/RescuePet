@@ -123,10 +123,10 @@ CREATE TABLE solicitudes_adopcion (
     experiencia_previa TEXT,
     motivo TEXT NOT NULL,
     puntaje_compatibilidad DECIMAL(5,2),
+    CONSTRAINT uq_solicitud_publicacion_adoptante
+        UNIQUE (publicacion_id, adoptante_id),
     CONSTRAINT fk_solicitud_publicacion
         FOREIGN KEY (publicacion_id) REFERENCES publicaciones(id),
-    CONSTRAINT fk_solicitud_adoptante
-        FOREIGN KEY (adoptante_id) REFERENCES usuarios(id)
 );
 
 CREATE TABLE adopciones (

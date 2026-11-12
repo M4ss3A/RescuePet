@@ -22,6 +22,31 @@ El acceso a los datos se realizará desde el backend mediante Spring Data JPA y 
 
 Las relaciones y cardinalidades se representarán en el diagrama entidad-relación. El modelo fisico se documentara en el archivo schema.sql.
 
+## Valores permitidos
+
+Las columnas de tipo estado o categoría se almacenan como `VARCHAR`. Los valores válidos se controlan desde el backend mediante enumeraciones (`backend/app/models/enums.py`):
+
+| Tabla.columna | Valores |
+|---|---|
+| roles.nombre | ADMINISTRADOR, RESCATISTA, HOGAR_TRANSITO, ADOPTANTE |
+| animales.especie | Perro, Gato, Otro |
+| animales.sexo | Macho, Hembra |
+| animales.tamano | Pequeño, Mediano, Grande |
+| animales.estado | DISPONIBLE, EN_TRANSITO, EN_PROCESO_ADOPCION, ADOPTADO, INACTIVO |
+| registros_sanitarios.tipo | VACUNA, TRATAMIENTO, CONSULTA |
+| publicaciones.estado | ACTIVA, PAUSADA, FINALIZADA |
+| solicitudes_adopcion.estado | PENDIENTE, APROBADA, RECHAZADA, CANCELADA |
+| adopciones.estado | EN_SEGUIMIENTO, FINALIZADA |
+
+Las fechas con hora se almacenan en UTC.
+
+
+## Restricciones de unicidad
+
+- Un usuario por email.
+- Un rescate por animal.
+- Una adopción por solicitud.
+- Un adoptante no puede enviar más de una solicitud a la misma publicación.
 
 ## Índices principales
 
