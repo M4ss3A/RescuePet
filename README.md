@@ -48,14 +48,13 @@ Desarrollar una plataforma que permita gestionar animales rescatados y sus proce
 ### Base de datos y herramientas
 
 - Modelo de base de datos relacional.
-- SQLite para desarrollo y pruebas locales.
-- MySQL para la versión desplegada.
+- PostgreSQL, tanto para el desarrollo local como para la versión desplegada.
 - Postman para pruebas de la API.
 - Git y GitHub para control de versiones.
 
 ### Despliegue
 
-- Backend y base de datos MySQL en Railway.
+- Backend y base de datos PostgreSQL en Railway.
 - Frontend en Netlify.
   
 ## 📁 Estructura del repositorio

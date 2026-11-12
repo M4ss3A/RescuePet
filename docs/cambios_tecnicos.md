@@ -11,11 +11,11 @@ Este documento registra los cambios realizados sobre las decisiones técnicas pr
 | Persistencia / ORM | Spring Data JPA + Hibernate | SQLModel (SQLAlchemy + Pydantic) |
 | Validación y DTOs | DTOs Java + Bean Validation | Modelos Pydantic / SQLModel |
 | Documentación de la API | Swagger / OpenAPI | Swagger / OpenAPI (generado automáticamente por FastAPI) |
-| Base de datos de desarrollo | H2 | SQLite |
-| Base de datos desplegada | MySQL | MySQL (sin cambios) |
+| Base de datos de desarrollo | H2 | PostgreSQL |
+| Base de datos desplegada | MySQL | PostgreSQL |
 | Frontend | HTML, CSS, JavaScript y TypeScript | React + TypeScript + Vite + Tailwind CSS |
 
-Se mantienen sin cambios: la arquitectura cliente-servidor, la API REST con intercambio en JSON, la organización por capas, el modelo relacional, MySQL, el despliegue en Railway y Netlify, Postman y Git/GitHub.
+Se mantienen sin cambios: la arquitectura cliente-servidor, la API REST con intercambio en JSON, la organización por capas, el modelo relacional (tablas, columnas y relaciones), el despliegue en Railway y Netlify, Postman y Git/GitHub.
 
 ---
 
@@ -55,7 +55,7 @@ Services
    ↓
 Repositories (SQLModel)
    ↓
-MySQL
+PostgreSQL
 ```
 
 ### Consideraciones
@@ -71,22 +71,32 @@ El acceso a datos se implementará con **SQLModel**, que combina SQLAlchemy (ORM
 ### Justificación
 - Cumple la misma función que JPA/Hibernate: mapear las tablas relacionales a clases y realizar las consultas sin escribir SQL manualmente.
 - Permite definir las relaciones del modelo (1:1, 1:N y N:N) que ya figuran en el diagrama entidad-relación.
-- Al estar basado en SQLAlchemy, es compatible tanto con MySQL como con SQLite.
+- Es la herramienta de persistencia trabajada en la cursada junto con PostgreSQL.
 
 ### Impacto en el modelo de datos
 **El modelo relacional no cambia.** Las tablas, columnas, claves y relaciones definidas en [`database/schema.sql`](../database/schema.sql) y en el [diagrama entidad-relación](../database/Diagrama_E-R.md) siguen vigentes. Los modelos SQLModel del backend se construirán a partir de ese esquema.
 
 ---
 
-## 3. Base de datos de desarrollo: de H2 a SQLite
+## 3. Base de datos: de H2 y MySQL a PostgreSQL
 
 ### Cambio
-Para el desarrollo y las pruebas locales se usará **SQLite** en lugar de H2. La versión desplegada continúa utilizando **MySQL**.
+Se utilizará **PostgreSQL** tanto para el desarrollo local como para la versión desplegada, en lugar de H2 (desarrollo) y MySQL (producción).
 
 ### Justificación
-- H2 es una base de datos pensada para el ecosistema Java y no se integra con Python.
-- SQLite cumple el mismo objetivo: es un archivo local que no requiere instalar ni configurar un servidor.
-- El cambio entre SQLite y MySQL se realiza modificando únicamente la URL de conexión (variable de entorno), sin cambios en el código.
+- **Tecnología trabajada en la cursada:** PostgreSQL es el motor de base de datos utilizado en Programación IV junto con FastAPI y SQLModel.
+- **Mismo motor en desarrollo y producción:** al usar la misma base en ambos entornos se evitan diferencias de comportamiento entre motores distintos.
+- **H2 no se integra con Python:** es una base de datos pensada para el ecosistema Java.
+- **Despliegue sin cambios en la estrategia:** Railway ofrece PostgreSQL como servicio administrado, igual que MySQL.
+- **Configuración por entorno:** la conexión se define con una variable de entorno (`DATABASE_URL`), por lo que pasar de la base local a la desplegada no requiere cambios en el código.
+
+### Impacto en el modelo de datos
+Las tablas, columnas, claves y relaciones no cambian. Solo se adaptó la sintaxis de [`database/schema.sql`](../database/schema.sql) a PostgreSQL:
+
+| MySQL | PostgreSQL |
+|---|---|
+| `BIGINT AUTO_INCREMENT PRIMARY KEY` | `BIGSERIAL PRIMARY KEY` |
+| `DATETIME` | `TIMESTAMPTZ` (fecha y hora con zona horaria) |
 
 ---
 ## 4. Frontend: React + TypeScript + Vite + Tailwind CSS
@@ -109,8 +119,8 @@ En la segunda entrega el frontend se describió con HTML, CSS, JavaScript y Type
 
 **Frontend:** React, TypeScript, Vite, Tailwind CSS.
 
-**Base de datos:** modelo relacional; SQLite para desarrollo y MySQL para la versión desplegada.
+**Base de datos:** modelo relacional con PostgreSQL, tanto para desarrollo como para la versión desplegada.
 
 **Herramientas:** Swagger / OpenAPI, Postman, Git y GitHub.
 
-**Despliegue:** backend y MySQL en Railway; frontend en Netlify.
+**Despliegue:** backend y PostgreSQL en Railway; frontend en Netlify.

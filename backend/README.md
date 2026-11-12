@@ -6,7 +6,7 @@ API y lógica de negocio de RescuePet.
 - FastAPI
 - SQLModel (SQLAlchemy + Pydantic)
 - Uvicorn
-- SQLite (desarrollo) / MySQL (producción)
+- PostgreSQL
 - JWT para autenticación
 
 ## Organización por capas
