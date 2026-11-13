@@ -27,3 +27,10 @@ export function register(nombre: string, email: string, password: string, rol: R
   const { password: _password, ...usuario } = nuevo
   return usuario
 }
+
+export function getUsuarioById(id: number): Usuario | undefined {
+  const encontrado = usuariosMock.find((u) => u.id === id)
+  if (!encontrado) return undefined
+  const { password: _password, ...usuario } = encontrado
+  return usuario
+}
