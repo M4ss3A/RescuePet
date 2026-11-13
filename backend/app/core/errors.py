@@ -11,7 +11,9 @@ class ErrorDeDominio(Exception):
         super().__init__(mensaje)
         self.mensaje = mensaje
 
-
+class NoAutenticado(ErrorDeDominio):
+    status_code = 401
+    
 class NoEncontrado(ErrorDeDominio):
     status_code = 404
 
@@ -29,4 +31,5 @@ def registrar_manejadores(app: FastAPI) -> None:
 
     @app.exception_handler(ErrorDeDominio)
     async def manejar_error_de_dominio(_: Request, error: ErrorDeDominio) -> JSONResponse:
-        return JSONResponse(status_code=error.status_code, content={"detail": error.mensaje})
+        headers = {"WWW-Authenticate": "Bearer"} if isinstance(error, NoAutenticado) else None
+        return JSONResponse(status_code=error.status_code, content={"detail": error.mensaje}, headers=headers)

@@ -5,7 +5,7 @@ from app.repositories.animal_repository import AnimalRepository
 from app.repositories.hogar_transito_repository import AsignacionTransitoRepository, HogarTransitoRepository
 from app.repositories.registro_sanitario_repository import RegistroSanitarioRepository
 from app.repositories.rescate_repository import RescateRepository
-from app.repositories.usuario_repository import UsuarioRepository
+from app.repositories.usuario_repository import RolRepository, UsuarioRepository
 
 
 class UnitOfWork:
@@ -16,6 +16,7 @@ class UnitOfWork:
         # expire_on_commit=False: los objetos conservan sus datos después del commit
         self.session = Session(engine, expire_on_commit=False)
         self.usuarios = UsuarioRepository(self.session)
+        self.roles = RolRepository(self.session)
         self.animales = AnimalRepository(self.session)
         self.rescates = RescateRepository(self.session)
         self.registros_sanitarios = RegistroSanitarioRepository(self.session)

@@ -2,3 +2,7 @@ fastapi[standard]
 sqlmodel
 pydantic-settings
 psycopg[binary]
+passlib[bcrypt]==1.7.4
+bcrypt==4.0.1
+python-jose[cryptography]==3.5.0
+python-multipart

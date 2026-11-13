@@ -1,7 +1,9 @@
 from sqlmodel import Session, select
 
+from app.core.config import settings
 from app.core.database import engine
-from app.models import Rol
+from app.core.security import hash_password
+from app.models import Rol, Usuario
 from app.models.enums import RolNombre
 
 
@@ -19,4 +21,26 @@ def cargar_roles() -> None:
         for nombre, descripcion in ROLES_INICIALES.items():
             if nombre.value not in existentes:
                 session.add(Rol(nombre=nombre.value, descripcion=descripcion))
+        session.commit()
+
+
+
+def cargar_admin() -> None:
+    """Crea el administrador inicial con los datos del .env (ADMIN_EMAIL y ADMIN_PASSWORD), si no existe.
+    La contraseña no está en el código: se lee del entorno."""
+    if not settings.admin_email or not settings.admin_password:
+        return
+    with Session(engine) as session:
+        if session.exec(select(Usuario).where(Usuario.email == settings.admin_email)).first():
+            return
+        rol_admin = session.exec(select(Rol).where(Rol.nombre == RolNombre.ADMINISTRADOR.value)).one()
+        session.add(
+            Usuario(
+                nombre="Administrador",
+                apellido="RescuePet",
+                email=settings.admin_email,
+                contrasena_hash=hash_password(settings.admin_password),
+                roles=[rol_admin],
+            )
+        )
         session.commit()
