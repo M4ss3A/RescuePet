@@ -9,7 +9,7 @@ from app.repositories.usuario_repository import RolRepository, UsuarioRepository
 from app.repositories.adopcion_repository import AdopcionRepository, SeguimientoRepository
 from app.repositories.publicacion_repository import PublicacionRepository
 from app.repositories.solicitud_repository import SolicitudRepository
-
+from app.repositories.estadistica_repository import EstadisticaRepository
 
 class UnitOfWork:
     """Controla la transacción: abre la sesión, expone los repositorios que la comparten
@@ -28,6 +28,7 @@ class UnitOfWork:
         self.solicitudes = SolicitudRepository(self.session)
         self.adopciones = AdopcionRepository(self.session)
         self.seguimientos = SeguimientoRepository(self.session)
+        self.estadisticas = EstadisticaRepository(self.session)
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb) -> None:
@@ -38,3 +39,4 @@ class UnitOfWork:
                 self.session.commit()
         finally:
             self.session.close()
+

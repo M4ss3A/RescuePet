@@ -11,6 +11,7 @@ from app.routers import (
     adopciones,
     animales,
     auth,
+    estadisticas,
     health,
     hogares_transito,
     publicaciones,
@@ -54,3 +55,4 @@ app.include_router(auth.router)
 app.include_router(publicaciones.router)
 app.include_router(solicitudes.router)
 app.include_router(adopciones.router)
+app.include_router(estadisticas.router)
