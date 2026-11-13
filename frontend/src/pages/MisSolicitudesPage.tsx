@@ -26,9 +26,16 @@ export function MisSolicitudesPage() {
                   <p className="font-body font-medium text-sm text-ink">{animal?.nombre ?? `Animal #${s.animalId}`}</p>
                   <p className="font-body text-xs text-ink/60">Enviada el {s.fechaSolicitud}</p>
                 </div>
-                <span className="font-body text-xs font-medium px-3 py-1 rounded-full bg-white text-ink">
-                  {s.estado}
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="font-body text-xs font-medium px-3 py-1 rounded-full bg-white text-ink">
+                    {s.estado}
+                  </span>
+                  {s.estado === 'APROBADA' && (
+                    <Link to={`/mis-solicitudes/${s.id}/adopcion`} className="font-body text-xs text-primary-dark underline">
+                      Ver adopción
+                    </Link>
+                  )}
+                </div>
               </div>
             )
           })}
