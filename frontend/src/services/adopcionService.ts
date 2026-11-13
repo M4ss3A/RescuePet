@@ -1,7 +1,7 @@
 import type { Adopcion } from '../types/adopcion'
 
 // NOTA: mock en memoria — los cambios se pierden al recargar la pagina.
-// Se resuelve en el Hito 5, cuando esto pase a consultar la API 
+// Se resuelve en el Hito 5, cuando esto pase a consultar la API real.
 const adopcionesMock: Adopcion[] = []
 let nextId = 1
 
@@ -14,3 +14,8 @@ export function createAdopcion(solicitudId: number, fechaAdopcion: string): Adop
 export function getAdopcionBySolicitudId(solicitudId: number): Adopcion | undefined {
   return adopcionesMock.find((a) => a.solicitudId === solicitudId)
 }
+
+export function getAllAdopciones(): Adopcion[] {
+  return adopcionesMock
+}
+
