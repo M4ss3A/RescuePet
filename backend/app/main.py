@@ -7,7 +7,18 @@ from app.core.config import settings
 from app.core.database import create_db_and_tables
 from app.core.errors import registrar_manejadores
 from app.core.seed import cargar_admin, cargar_roles
-from app.routers import animales, auth, health, hogares_transito, registros_sanitarios, rescates
+from app.routers import (
+    adopciones,
+    animales,
+    auth,
+    health,
+    hogares_transito,
+    publicaciones,
+    registros_sanitarios,
+    rescates,
+    solicitudes,
+)
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -40,3 +51,6 @@ app.include_router(rescates.router)
 app.include_router(registros_sanitarios.router)
 app.include_router(hogares_transito.router)
 app.include_router(auth.router)
+app.include_router(publicaciones.router)
+app.include_router(solicitudes.router)
+app.include_router(adopciones.router)

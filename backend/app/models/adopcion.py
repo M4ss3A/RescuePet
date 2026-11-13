@@ -6,7 +6,7 @@ from sqlalchemy import Index, String, Text, UniqueConstraint
 from sqlmodel import Field, Relationship, SQLModel
 
 from app.models.base import ahora_utc
-from app.models.enums import EstadoAdopcion, EstadoPublicacion, EstadoSolicitud
+from app.models.enums import EstadoAdopcion, EstadoPublicacion, EstadoSolicitud, TipoVivienda
 
 if TYPE_CHECKING:
     from app.models.animal import Animal
@@ -44,7 +44,7 @@ class SolicitudAdopcion(SQLModel, table=True):
     adoptante_id: int = Field(foreign_key="usuarios.id")
     fecha_solicitud: datetime = Field(default_factory=ahora_utc)
     estado: EstadoSolicitud = Field(default=EstadoSolicitud.PENDIENTE, sa_type=String(30))
-    tipo_vivienda: str = Field(max_length=50)
+    tipo_vivienda: TipoVivienda = Field(sa_type=String(50))
     tiene_patio: bool
     tiene_otros_animales: bool
     experiencia_previa: str | None = Field(default=None, sa_type=Text)

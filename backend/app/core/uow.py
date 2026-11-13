@@ -6,6 +6,9 @@ from app.repositories.hogar_transito_repository import AsignacionTransitoReposit
 from app.repositories.registro_sanitario_repository import RegistroSanitarioRepository
 from app.repositories.rescate_repository import RescateRepository
 from app.repositories.usuario_repository import RolRepository, UsuarioRepository
+from app.repositories.adopcion_repository import AdopcionRepository, SeguimientoRepository
+from app.repositories.publicacion_repository import PublicacionRepository
+from app.repositories.solicitud_repository import SolicitudRepository
 
 
 class UnitOfWork:
@@ -13,7 +16,6 @@ class UnitOfWork:
     y al salir del bloque `with` hace commit si todo salió bien o rollback si hubo un error."""
 
     def __enter__(self) -> "UnitOfWork":
-        # expire_on_commit=False: los objetos conservan sus datos después del commit
         self.session = Session(engine, expire_on_commit=False)
         self.usuarios = UsuarioRepository(self.session)
         self.roles = RolRepository(self.session)
@@ -22,6 +24,10 @@ class UnitOfWork:
         self.registros_sanitarios = RegistroSanitarioRepository(self.session)
         self.hogares = HogarTransitoRepository(self.session)
         self.asignaciones = AsignacionTransitoRepository(self.session)
+        self.publicaciones = PublicacionRepository(self.session)
+        self.solicitudes = SolicitudRepository(self.session)
+        self.adopciones = AdopcionRepository(self.session)
+        self.seguimientos = SeguimientoRepository(self.session)
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb) -> None:

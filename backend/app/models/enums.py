@@ -55,3 +55,9 @@ class EstadoSolicitud(str, Enum):
 class EstadoAdopcion(str, Enum):
     EN_SEGUIMIENTO = "EN_SEGUIMIENTO"
     FINALIZADA = "FINALIZADA"
+
+    
+class TipoVivienda(str, Enum):
+    CASA_CON_PATIO = "Casa con patio"
+    CASA_SIN_PATIO = "Casa sin patio"
+    DEPARTAMENTO = "Departamento"
