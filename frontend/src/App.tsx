@@ -11,6 +11,9 @@ import { RegisterPage } from './pages/RegisterPage'
 import { AnimalFormPage } from './pages/AnimalFormPage'
 import { HogaresTransitoPage } from './pages/HogaresTransitoPage'
 import { HogarFormPage } from './pages/HogarFormPage'
+import { SolicitudAdopcionFormPage } from './pages/SolicitudAdopcionFormPage'
+import { MisSolicitudesPage } from './pages/MisSolicitudesPage'
+
 
 function App() {
   return (
@@ -29,6 +32,11 @@ function App() {
           <Route path="/rescatista/hogares" element={<HogaresTransitoPage />} />
           <Route path="/rescatista/hogares/nuevo" element={<HogarFormPage />} />
           <Route path="/rescatista/hogares/:id/editar" element={<HogarFormPage />} />
+        </Route>
+
+        <Route element={<ProtectedRoute allowedRoles={['ADOPTANTE']} />}>
+          <Route path="/solicitudes/nueva/:animalId" element={<SolicitudAdopcionFormPage />} />
+          <Route path="/mis-solicitudes" element={<MisSolicitudesPage />} />
         </Route>
 
         <Route path="*" element={<NotFoundPage />} />
