@@ -9,7 +9,7 @@ class AnimalService:
     def __init__(self, uow: UnitOfWork) -> None:
         self.uow = uow
 
-    # --- Funciones auxiliares (se usan dentro de un bloque `with self.uow`) ---
+    #Funciones auxiliares (se usan dentro de un bloque `with self.uow`)
 
     def _a_respuesta(self, animal: Animal) -> AnimalRead:
         """Convierte el modelo en la respuesta de la API, agregando la URL de la foto principal."""
@@ -33,7 +33,7 @@ class AnimalService:
             foto.url = url
         self.uow.animales.guardar_foto(foto)
 
-    # --- Casos de uso ---
+    #Casos de uso 
 
     def listar(self, estado: EstadoAnimal | None = None) -> list[AnimalRead]:
         with self.uow:

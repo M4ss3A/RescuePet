@@ -1,6 +1,6 @@
 from sqlmodel import SQLModel, create_engine
 
-from app import models  # noqa: F401  (registra los modelos para crear las tablas)
+from app import models  # noqa: F401  
 from app.core.config import settings
 
 engine = create_engine(settings.database_url)

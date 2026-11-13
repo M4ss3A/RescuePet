@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, status
 
+from app.core.deps import GestorAnimales
 from app.core.uow import UnitOfWork
 from app.models.enums import EstadoAnimal
 from app.schemas.animal import AnimalCreate, AnimalRead, AnimalUpdate
@@ -15,25 +16,28 @@ def get_animal_service() -> AnimalService:
 
 @router.get("", response_model=list[AnimalRead])
 def listar_animales(estado: EstadoAnimal | None = None, service: AnimalService = Depends(get_animal_service)):
-    """Lista los animales. Con ?estado=DISPONIBLE devuelve solo los disponibles."""
+    """Público. Lista los animales; con ?estado=DISPONIBLE devuelve solo los disponibles."""
     return service.listar(estado)
 
 
 @router.get("/{animal_id}", response_model=AnimalRead)
 def obtener_animal(animal_id: int, service: AnimalService = Depends(get_animal_service)):
+    """Público."""
     return service.obtener(animal_id)
 
 
 @router.post("", response_model=AnimalRead, status_code=status.HTTP_201_CREATED)
-def crear_animal(datos: AnimalCreate, service: AnimalService = Depends(get_animal_service)):
+def crear_animal(datos: AnimalCreate, _usuario: GestorAnimales, service: AnimalService = Depends(get_animal_service)):
     return service.crear(datos)
 
 
 @router.patch("/{animal_id}", response_model=AnimalRead)
-def actualizar_animal(animal_id: int, datos: AnimalUpdate, service: AnimalService = Depends(get_animal_service)):
+def actualizar_animal(
+    animal_id: int, datos: AnimalUpdate, _usuario: GestorAnimales, service: AnimalService = Depends(get_animal_service)
+):
     return service.actualizar(animal_id, datos)
 
 
 @router.delete("/{animal_id}", status_code=status.HTTP_204_NO_CONTENT)
-def dar_de_baja_animal(animal_id: int, service: AnimalService = Depends(get_animal_service)):
+def dar_de_baja_animal(animal_id: int, _usuario: GestorAnimales, service: AnimalService = Depends(get_animal_service)):
     service.dar_de_baja(animal_id)

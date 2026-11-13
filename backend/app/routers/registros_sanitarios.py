@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, status
 
+from app.core.deps import GestorSalud
 from app.core.uow import UnitOfWork
 from app.schemas.registro_sanitario import (
     RegistroSanitarioCreate,
@@ -17,7 +18,7 @@ def get_registro_sanitario_service() -> RegistroSanitarioService:
 
 @router.get("/animales/{animal_id}/registros-sanitarios", response_model=list[RegistroSanitarioRead])
 def listar_historial(animal_id: int, service: RegistroSanitarioService = Depends(get_registro_sanitario_service)):
-    """Historial sanitario del animal, ordenado por fecha."""
+    """Público. Historial sanitario del animal, ordenado por fecha."""
     return service.listar_historial(animal_id)
 
 
@@ -29,6 +30,7 @@ def listar_historial(animal_id: int, service: RegistroSanitarioService = Depends
 def crear_registro(
     animal_id: int,
     datos: RegistroSanitarioCreate,
+    _usuario: GestorSalud,
     service: RegistroSanitarioService = Depends(get_registro_sanitario_service),
 ):
     return service.crear(animal_id, datos)
@@ -38,11 +40,16 @@ def crear_registro(
 def actualizar_registro(
     registro_id: int,
     datos: RegistroSanitarioUpdate,
+    _usuario: GestorSalud,
     service: RegistroSanitarioService = Depends(get_registro_sanitario_service),
 ):
     return service.actualizar(registro_id, datos)
 
 
 @router.delete("/registros-sanitarios/{registro_id}", status_code=status.HTTP_204_NO_CONTENT)
-def eliminar_registro(registro_id: int, service: RegistroSanitarioService = Depends(get_registro_sanitario_service)):
+def eliminar_registro(
+    registro_id: int,
+    _usuario: GestorSalud,
+    service: RegistroSanitarioService = Depends(get_registro_sanitario_service),
+):
     service.eliminar(registro_id)

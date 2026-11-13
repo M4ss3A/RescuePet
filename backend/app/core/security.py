@@ -5,7 +5,7 @@ from passlib.context import CryptContext
 
 from app.core.config import settings
 
-# bcrypt: hash lento y con sal aleatoria (Unidad 9, apartado 4)
+# bcrypt: hash lento y con sal aleatoria 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 

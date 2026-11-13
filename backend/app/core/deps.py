@@ -76,3 +76,13 @@ def require_role(allowed_roles: list[RolNombre]):
 # Alias para usar en los routers
 UsuarioActual = Annotated[UsuarioPublic, Depends(get_current_active_user)]
 SoloAdmin = Annotated[UsuarioPublic, Depends(require_role([RolNombre.ADMINISTRADOR]))]
+
+
+# Combinaciones de roles que usan los routers
+GestorAnimales = Annotated[UsuarioPublic, Depends(require_role([RolNombre.RESCATISTA, RolNombre.ADMINISTRADOR]))]
+Rescatista = Annotated[UsuarioPublic, Depends(require_role([RolNombre.RESCATISTA]))]
+GestorSalud = Annotated[
+    UsuarioPublic,
+    Depends(require_role([RolNombre.RESCATISTA, RolNombre.HOGAR_TRANSITO, RolNombre.ADMINISTRADOR])),
+]
+ResponsableHogar = Annotated[UsuarioPublic, Depends(require_role([RolNombre.HOGAR_TRANSITO]))]

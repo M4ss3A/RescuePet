@@ -6,7 +6,6 @@ from app.schemas.base import CamelModel
 
 
 class HogarTransitoCreate(CamelModel):
-    responsable_id: int
     direccion: str = Field(min_length=1, max_length=255)
     capacidad: int = Field(ge=1, le=20)
     disponible: bool = True

@@ -4,11 +4,9 @@ from pydantic import Field
 
 from app.schemas.base import CamelModel
 
-
 class RescateCreate(CamelModel):
-    """Datos para registrar el rescate de un animal."""
+    """Datos para registrar el rescate. El rescatista es el usuario logueado, no se envía."""
 
-    rescatista_id: int
     fecha_rescate: date
     ubicacion: str = Field(min_length=1, max_length=255)
     descripcion: str | None = None

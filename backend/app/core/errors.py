@@ -13,7 +13,11 @@ class ErrorDeDominio(Exception):
 
 class NoAutenticado(ErrorDeDominio):
     status_code = 401
-    
+
+
+class SinPermiso(ErrorDeDominio):
+    status_code = 403
+
 class NoEncontrado(ErrorDeDominio):
     status_code = 404
 

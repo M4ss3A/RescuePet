@@ -2,7 +2,7 @@
 .venv/
 venv/
 
-# Variables de entorno (contienen contraseñas)
+# Variables de entorno 
 .env
 
 # Python

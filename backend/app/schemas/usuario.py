@@ -5,7 +5,7 @@ from pydantic import EmailStr, Field, field_validator
 from app.models.enums import RolNombre
 from app.schemas.base import CamelModel
 
-# Roles que se pueden elegir al registrarse. ADMINISTRADOR no: lo asigna el sistema
+
 ROLES_REGISTRABLES = {RolNombre.ADOPTANTE, RolNombre.RESCATISTA, RolNombre.HOGAR_TRANSITO}
 
 
@@ -48,6 +48,9 @@ class UsuarioPublic(CamelModel):
     activo: bool
     fecha_registro: datetime
     roles: list[str]
+    
+    def tiene_rol(self, rol: RolNombre) -> bool:
+        return rol.value in self.roles
 
 
 class LoginRespuesta(CamelModel):
