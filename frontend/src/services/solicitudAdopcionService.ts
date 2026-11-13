@@ -22,3 +22,21 @@ export function createSolicitud(
 export function getSolicitudesByAdoptanteId(adoptanteId: number): SolicitudAdopcion[] {
   return solicitudesMock.filter((s) => s.adoptanteId === adoptanteId)
 }
+
+export function getAllSolicitudes(): SolicitudAdopcion[] {
+  return solicitudesMock
+}
+
+export function getSolicitudById(id: number): SolicitudAdopcion | undefined {
+  return solicitudesMock.find((s) => s.id === id)
+}
+
+export function updateSolicitudEstado(
+  id: number,
+  estado: SolicitudAdopcion['estado']
+): SolicitudAdopcion | undefined {
+  const solicitud = solicitudesMock.find((s) => s.id === id)
+  if (!solicitud) return undefined
+  solicitud.estado = estado
+  return solicitud
+}
