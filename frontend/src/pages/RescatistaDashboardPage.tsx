@@ -15,10 +15,15 @@ export function RescatistaDashboardPage() {
     <main className="max-w-5xl mx-auto px-6 py-8">
       <div className="flex items-center justify-between mb-6">
         <h1 className="font-heading font-bold text-3xl text-ink">Panel del rescatista</h1>
-        <Link to="/rescatista/animales/nuevo"
-          className="bg-accent text-white rounded-full px-4 py-2 font-body font-medium text-sm">
-          + Registrar animal
-        </Link>
+        <div className="flex items-center gap-4">
+          <Link to="/rescatista/hogares" className="font-body text-sm text-primary-dark underline">
+            Hogares de tránsito
+          </Link>
+          <Link to="/rescatista/animales/nuevo"
+            className="bg-accent text-white rounded-full px-4 py-2 font-body font-medium text-sm">
+            + Registrar animal
+          </Link>
+        </div>
       </div>
 
       <div className="flex flex-col gap-2">
