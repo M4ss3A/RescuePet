@@ -34,15 +34,20 @@ def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], response: 
         value=token,
         httponly=True,
         max_age=settings.access_token_expire_minutes * 60,
-        samesite="lax",
-        secure=False,  # en producción, con HTTPS: True
+        samesite=settings.cookie_samesite,
+        secure=settings.cookie_secure,
     )
     return LoginRespuesta(mensaje="Login exitoso", usuario=usuario)
 
 
 @router.post("/auth/logout")
 def logout(response: Response):
-    response.delete_cookie("access_token", httponly=True, samesite="lax")
+    response.delete_cookie(
+        "access_token",
+        httponly=True,
+        samesite=settings.cookie_samesite,
+        secure=settings.cookie_secure,
+    )
     return {"mensaje": "Sesión cerrada"}
 
 

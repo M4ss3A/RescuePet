@@ -1,4 +1,5 @@
-from pydantic import Field
+from typing import Literal
+from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -13,12 +14,26 @@ class Settings(BaseSettings):
     secret_key: str = Field(min_length=32)
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 30
+    
+    # Cookie del token: en local (http) quedan asi; en producción (https) se cambian desde las variables de entorno
+    cookie_secure: bool = False
+    cookie_samesite: Literal["lax", "strict", "none"] = "lax"
 
     # Administrador inicial 
     admin_email: str | None = None
     admin_password: str | None = None
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+    
+    @field_validator("database_url")
+    @classmethod
+    def usar_driver_psycopg(cls, valor: str) -> str:
+        """Railway entrega la URL como 'postgresql://...'; SQLModel necesita 'postgresql+psycopg://...'."""
+        if valor.startswith("postgresql://"):
+            return valor.replace("postgresql://", "postgresql+psycopg://", 1)
+        if valor.startswith("postgres://"):
+            return valor.replace("postgres://", "postgresql+psycopg://", 1)
+        return valor
 
     @property
     def cors_origins_list(self) -> list[str]:
