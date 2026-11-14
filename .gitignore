@@ -5,3 +5,7 @@
 # Archivos del sistema operativo
 .DS_Store
 Thumbs.db
+
+# Entornos virtuales
+.venv/
+venv/
