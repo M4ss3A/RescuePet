@@ -1,4 +1,3 @@
-from datetime import date
 from typing import Any
 
 from sqlmodel import Session, col, extract, func, select
