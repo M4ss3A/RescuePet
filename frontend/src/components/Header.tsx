@@ -10,7 +10,7 @@ export function Header() {
   const navLinks = [
     { to: '/catalogo', label: 'Catálogo' },
     ...(usuario?.roles.includes('RESCATISTA') ? [{ to: '/rescatista', label: 'Panel rescatista' }] : []),
-    ...(usuario?.roles.includes('ADOPTANTE') ? [{ to: '/mis-solicitudes', label: 'Mis solicitudes' }] : []),
+    ...(isAuthenticated ? [{ to: '/mis-solicitudes', label: 'Mis solicitudes' }] : []),
   ]
 
   function handleLogout() {
