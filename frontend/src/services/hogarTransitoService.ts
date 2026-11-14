@@ -8,7 +8,7 @@ const hogaresMock: HogarTransito[] = [
 ]
 
 const asignacionesMock: AsignacionTransito[] = [
-  { id: 1, animalId: 2, hogarTransitoId: 1, fechaIngreso: '2026-03-16' },
+  
 ]
 
 let nextHogarId = hogaresMock.length + 1
@@ -36,4 +36,17 @@ export function updateHogar(id: number, data: Partial<Omit<HogarTransito, 'id'>>
 
 export function getAsignacionesActivasByHogarId(hogarId: number): AsignacionTransito[] {
   return asignacionesMock.filter((a) => a.hogarTransitoId === hogarId && !a.fechaSalida)
+}
+
+let nextAsignacionId = asignacionesMock.length + 1
+
+export function createAsignacion(data: Omit<AsignacionTransito, 'id'>): AsignacionTransito {
+  const nueva: AsignacionTransito = { id: nextAsignacionId++, ...data }
+  asignacionesMock.push(nueva)
+  return nueva
+}
+
+export function finalizarAsignacion(animalId: number, fechaSalida: string): void {
+  const activa = asignacionesMock.find((a) => a.animalId === animalId && !a.fechaSalida)
+  if (activa) activa.fechaSalida = fechaSalida
 }

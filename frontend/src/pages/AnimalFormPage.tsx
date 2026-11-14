@@ -31,7 +31,7 @@ export function AnimalFormPage() {
     e.preventDefault()
 
     if (esEdicion && animalExistente) {
-  updateAnimal(animalExistente.id, { nombre, especie, raza, edadAproximada, tamano, descripcion, estado })
+      updateAnimal(animalExistente.id, { nombre, especie, raza, edadAproximada, tamano, descripcion, estado })
     } else {
       const nuevo = createAnimal({
         nombre, especie, raza, edadAproximada, tamano, descripcion,
@@ -58,7 +58,8 @@ export function AnimalFormPage() {
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <label className="flex flex-col gap-1">
           <span className="font-body text-sm text-ink">Nombre</span>
-          <input value={nombre} onChange={(e) => setNombre(e.target.value)} required
+          <input value={nombre} onChange={(e) => setNombre(e.target.value)} required minLength={3}
+            placeholder="Ej: Rocky, Luna, Pelusa"
             className="border border-surface-muted rounded-lg px-3 py-2 font-body text-sm" />
         </label>
 
@@ -82,20 +83,22 @@ export function AnimalFormPage() {
 
         <label className="flex flex-col gap-1">
           <span className="font-body text-sm text-ink">Raza</span>
-          <input value={raza} onChange={(e) => setRaza(e.target.value)}
+          <input value={raza} onChange={(e) => setRaza(e.target.value)} required minLength={5}
+            placeholder="Ej: Labrador, Siamés, Mestizo"
             className="border border-surface-muted rounded-lg px-3 py-2 font-body text-sm" />
         </label>
 
         <label className="flex flex-col gap-1">
           <span className="font-body text-sm text-ink">Edad aproximada (años)</span>
-          <input type="number" min={0} value={edadAproximada}
+          <input type="number" min={0} max={20} value={edadAproximada} required
             onChange={(e) => setEdadAproximada(Number(e.target.value))}
             className="border border-surface-muted rounded-lg px-3 py-2 font-body text-sm" />
         </label>
 
         <label className="flex flex-col gap-1">
           <span className="font-body text-sm text-ink">Descripción</span>
-          <textarea value={descripcion} onChange={(e) => setDescripcion(e.target.value)} rows={3}
+          <textarea value={descripcion} onChange={(e) => setDescripcion(e.target.value)} rows={3} required minLength={10}
+            placeholder="Ej: Animal rescatado de la calle, se muestra amigable y sociable con personas y otros animales"
             className="border border-surface-muted rounded-lg px-3 py-2 font-body text-sm" />
         </label>
 
@@ -104,6 +107,7 @@ export function AnimalFormPage() {
             <label className="flex flex-col gap-1">
               <span className="font-body text-sm text-ink">Ubicación del rescate</span>
               <input value={ubicacion} onChange={(e) => setUbicacion(e.target.value)} required
+                placeholder="Ej: Calle Falsa 123, Ciudad, Provincia"
                 className="border border-surface-muted rounded-lg px-3 py-2 font-body text-sm" />
             </label>
 
