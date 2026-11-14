@@ -11,8 +11,6 @@ from app.services.usuario_service import a_usuario_public
 
 
 class OAuth2PasswordBearerWithCookie(OAuth2PasswordBearer):
-    """Lee el token de la cookie HttpOnly 'access_token' en lugar del encabezado Authorization."""
-
     async def __call__(self, request: Request) -> str | None:  # type: ignore[override]
         token = request.cookies.get("access_token")
         if not token:
@@ -30,7 +28,6 @@ oauth2_scheme = OAuth2PasswordBearerWithCookie(tokenUrl="/api/v1/auth/token")
 
 
 def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]) -> UsuarioPublic:
-    """Valida el token y busca al usuario en la base en cada petición (401 si algo falla)."""
     credenciales_invalidas = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Credenciales inválidas o token expirado",
@@ -49,16 +46,12 @@ def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]) -> UsuarioPu
 def get_current_active_user(
     current_user: Annotated[UsuarioPublic, Depends(get_current_user)],
 ) -> UsuarioPublic:
-    """Rechaza a los usuarios desactivados aunque su token siga vigente (400)."""
     if not current_user.activo:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Cuenta de usuario desactivada")
     return current_user
 
 
 def require_role(allowed_roles: list[RolNombre]):
-    """Fábrica de dependencias: permite el acceso si el usuario tiene ALGUNO de los roles (403 si no).
-    Adaptación de RescuePet: un usuario puede tener varios roles."""
-
     def role_checker(
         current_user: Annotated[UsuarioPublic, Depends(get_current_active_user)],
     ) -> UsuarioPublic:
@@ -86,3 +79,6 @@ GestorSalud = Annotated[
     Depends(require_role([RolNombre.RESCATISTA, RolNombre.HOGAR_TRANSITO, RolNombre.ADMINISTRADOR])),
 ]
 ResponsableHogar = Annotated[UsuarioPublic, Depends(require_role([RolNombre.HOGAR_TRANSITO]))]
+
+
+Adoptante = Annotated[UsuarioPublic, Depends(require_role([RolNombre.ADOPTANTE]))]
