@@ -28,7 +28,10 @@ export function RescatistaDashboardPage() {
           <Link to="/rescatista/seguimientos" className="font-body text-sm text-primary-dark underline">
             Seguimientos
           </Link>
-                    
+          
+          <Link to="/rescatista/estadisticas" className="font-body text-sm text-primary-dark underline">
+            Estadísticas
+          </Link>
 
           <Link to="/rescatista/animales/nuevo"
             className="bg-accent text-white rounded-full px-4 py-2 font-body font-medium text-sm">
