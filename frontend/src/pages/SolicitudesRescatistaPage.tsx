@@ -34,30 +34,56 @@ export function SolicitudesRescatistaPage() {
             const animal = getAnimalById(s.animalId)
             const adoptante = getUsuarioById(s.adoptanteId)
             return (
-              <div key={s.id} className="bg-surface-muted rounded-xl p-4 flex items-center justify-between gap-4">
-                <div>
+              <div key={s.id} className="bg-surface-muted rounded-xl p-4">
+                <div className="flex items-center justify-between gap-4">
                   <p className="font-body font-medium text-sm text-ink">
                     {animal?.nombre ?? `Animal #${s.animalId}`} · {adoptante?.nombre ?? `Usuario #${s.adoptanteId}`}
                   </p>
-                  <p className="font-body text-xs text-ink/60">{s.tipoVivienda} · {s.motivo}</p>
+                  <div className="flex items-center gap-2">
+                    <span className="font-body text-xs font-medium px-3 py-1 rounded-full bg-white text-ink">
+                      {s.estado}
+                    </span>
+                    {s.estado === 'PENDIENTE' && (
+                      <>
+                        <button onClick={() => handleAprobar(s.id, s.animalId)}
+                          className="font-body text-xs text-primary-dark underline">
+                          Aprobar
+                        </button>
+                        <button onClick={() => handleRechazar(s.id)}
+                          className="font-body text-xs text-accent">
+                          Rechazar
+                        </button>
+                      </>
+                    )}
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="font-body text-xs font-medium px-3 py-1 rounded-full bg-white text-ink">
-                    {s.estado}
-                  </span>
-                  {s.estado === 'PENDIENTE' && (
-                    <>
-                      <button onClick={() => handleAprobar(s.id, s.animalId)}
-                        className="font-body text-xs text-primary-dark underline">
-                        Aprobar
-                      </button>
-                      <button onClick={() => handleRechazar(s.id)}
-                        className="font-body text-xs text-accent">
-                        Rechazar
-                      </button>
-                    </>
-                  )}
-                </div>
+
+                <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2">
+                  <div>
+                    <dt className="font-body text-xs text-ink/50">Tipo de vivienda</dt>
+                    <dd className="font-body text-xs text-ink">{s.tipoVivienda}</dd>
+                  </div>
+                  <div>
+                    <dt className="font-body text-xs text-ink/50">Fecha de solicitud</dt>
+                    <dd className="font-body text-xs text-ink">{s.fechaSolicitud}</dd>
+                  </div>
+                  <div>
+                    <dt className="font-body text-xs text-ink/50">¿Tiene patio?</dt>
+                    <dd className="font-body text-xs text-ink">{s.tienePatio ? 'Sí' : 'No'}</dd>
+                  </div>
+                  <div>
+                    <dt className="font-body text-xs text-ink/50">¿Tiene otros animales?</dt>
+                    <dd className="font-body text-xs text-ink">{s.tieneOtrosAnimales ? 'Sí' : 'No'}</dd>
+                  </div>
+                  <div className="col-span-2">
+                    <dt className="font-body text-xs text-ink/50">Experiencia previa</dt>
+                    <dd className="font-body text-xs text-ink">{s.experienciaPrevia || '—'}</dd>
+                  </div>
+                  <div className="col-span-2">
+                    <dt className="font-body text-xs text-ink/50">Motivo</dt>
+                    <dd className="font-body text-xs text-ink">{s.motivo}</dd>
+                  </div>
+                </dl>
               </div>
             )
           })}
