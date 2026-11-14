@@ -18,7 +18,7 @@ class AdopcionService:
     def _a_respuesta(adopcion: Adopcion) -> AdopcionRead:
         solicitud = adopcion.solicitud
         return AdopcionRead(
-            **adopcion.model_dump(),
+            **adopcion.model_dump(warnings=False),
             animal_id=solicitud.publicacion.animal_id,
             adoptante_id=solicitud.adoptante_id,
         )

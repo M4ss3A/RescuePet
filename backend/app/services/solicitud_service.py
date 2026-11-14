@@ -25,7 +25,7 @@ class SolicitudService:
 
     @staticmethod
     def _a_respuesta(solicitud: SolicitudAdopcion) -> SolicitudRead:
-        return SolicitudRead(**solicitud.model_dump(), animal_id=solicitud.publicacion.animal_id)
+        return SolicitudRead(**solicitud.model_dump(warnings=False), animal_id=solicitud.publicacion.animal_id)
 
     def _obtener_o_error(self, solicitud_id: int) -> SolicitudAdopcion:
         solicitud = self.uow.solicitudes.obtener_por_id(solicitud_id)
@@ -158,5 +158,5 @@ class SolicitudService:
                 self.uow.asignaciones.agregar(asignacion)
 
             return AdopcionRead(
-                **adopcion.model_dump(), animal_id=animal.id, adoptante_id=solicitud.adoptante_id  # type: ignore[arg-type]
+                **adopcion.model_dump(warnings=False), animal_id=animal.id, adoptante_id=solicitud.adoptante_id  # type: ignore[arg-type]
             )
