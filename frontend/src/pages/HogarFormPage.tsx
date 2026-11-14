@@ -36,14 +36,15 @@ export function HogarFormPage() {
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <label className="flex flex-col gap-1">
           <span className="font-body text-sm text-ink">Dirección</span>
-          <input value={direccion} onChange={(e) => setDireccion(e.target.value)} required
+          <input value={direccion} onChange={(e) => setDireccion(e.target.value)} required minLength={8} 
+            placeholder="Ej: Calle Falsa 123, Ciudad, Provincia"
             className="border border-surface-muted rounded-lg px-3 py-2 font-body text-sm" />
         </label>
 
         <label className="flex flex-col gap-1">
           <span className="font-body text-sm text-ink">Capacidad</span>
-          <input type="number" min={1} value={capacidad}
-            onChange={(e) => setCapacidad(Number(e.target.value))}
+          <input type="number" min={1} value={capacidad} required
+            onChange={(e) => setCapacidad(Number(e.target.value))} 
             className="border border-surface-muted rounded-lg px-3 py-2 font-body text-sm" />
         </label>
 
@@ -54,7 +55,8 @@ export function HogarFormPage() {
 
         <label className="flex flex-col gap-1">
           <span className="font-body text-sm text-ink">Observaciones</span>
-          <textarea value={observaciones} onChange={(e) => setObservaciones(e.target.value)} rows={3}
+          <textarea value={observaciones} onChange={(e) => setObservaciones(e.target.value)} rows={3} required minLength={15}
+            placeholder="Ej: Casa amplia, donde ya viven mascotas que se llevan bien con nuevos animales, familia responsable y comprometida"
             className="border border-surface-muted rounded-lg px-3 py-2 font-body text-sm" />
         </label>
 
