@@ -113,10 +113,32 @@ En la segunda entrega el frontend se describió con HTML, CSS, JavaScript y Type
 - Son tecnologías trabajadas durante la carrera.
 
 ---
+## 5. Arquitectura: Unit of Work y errores de dominio
 
-## Tecnologías definitivas
+### Cambio
+A la organización por capas (Routers, Services y Repositories) se le incorporó el patrón **Unit of Work** y un manejo centralizado de **errores de dominio**.
 
-**Backend:** Python, FastAPI, SQLModel, Pydantic, Uvicorn, autenticación con JWT y contraseñas almacenadas con hash.
+### Justificación
+- **Atomicidad:** varios casos de uso modifican más de una tabla. Por ejemplo, aprobar una solicitud de adopción actualiza la solicitud, crea la adopción, cambia el estado del animal, finaliza la publicación y rechaza las demás solicitudes. Con el Unit of Work, todos los repositorios comparten una única transacción: se confirman todos los cambios o ninguno.
+- **Responsabilidades claras:** los repositorios solo ejecutan consultas (`flush`) y el Unit of Work es el único que confirma (`commit`) o deshace (`rollback`), tal como se trabajó en Programación IV.
+- **Services independientes de HTTP:** los services lanzan errores de dominio (por ejemplo, `NoEncontrado` o `Conflicto`) y un único manejador los traduce a códigos HTTP (404, 409, etc.).
+
+## 6. Pruebas automatizadas con SQLite en memoria
+
+### Cambio
+Las pruebas automatizadas (pytest) utilizan una base de datos **SQLite en memoria**, que se crea y se descarta en cada test.
+
+### Justificacion
+- Sigue el esquema visto: el archivo `tests/conftest.py` reemplaza el engine del Unit of Work por uno de prueba.
+- Las pruebas no dependen de un servidor PostgreSQL ni modifican datos reales, y pueden ejecutarse en cualquier equipo.
+- Cada test comienza con una base vacía, por lo que las pruebas son independientes entre sí.
+
+La aplicación utiliza PostgreSQL en todos los entornos; SQLite se usa exclusivamente durante las pruebas.
+
+---
+## Tecnologias definitivas
+
+**Backend:** Python, FastAPI, SQLModel, Pydantic, Uvicorn, autenticación con JWT en cookie HttpOnly (python-jose), contraseñas con hash bcrypt (passlib) y pruebas con pytest.
 
 **Frontend:** React, TypeScript, Vite, Tailwind CSS.
 
