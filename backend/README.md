@@ -124,6 +124,29 @@ Los datos se cargan a través de los mismos services que usa la API, por lo que 
 
 Contraseña de todos los usuarios de ejemplo: `Demo1234!`
 
+## Despliegue
+
+El backend y la base de datos están desplegados en **Railway**:
+
+- **Documentación de la API (Swagger):** https://rescuepet-production.up.railway.app/docs
+- **URL base de la API:** `https://rescuepet-production.up.railway.app/api/v1` (por ejemplo, `/api/v1/health`)
+
+Configuración del servicio en Railway:
+
+| Opción | Valor |
+|---|---|
+| Root Directory | `/backend` |
+| Start Command | `uvicorn app.main:app --host 0.0.0.0 --port $PORT` |
+| Base de datos | PostgreSQL de Railway (`DATABASE_URL=${{Postgres.DATABASE_URL}}`) |
+
+Variables de entorno de producción: las mismas del `.env`, con estas diferencias:
+
+- `COOKIE_SECURE=true` y `COOKIE_SAMESITE=none`, porque el frontend (Netlify) y la API (Railway) están en dominios distintos y se comunican por HTTPS.
+- `CORS_ORIGINS` incluye la URL del frontend desplegado.
+- `SECRET_KEY` y `ADMIN_PASSWORD` tienen valores propios de producción, que no se suben al repositorio.
+
+Cada push a `main` vuelve a desplegar el backend automáticamente.
+
 ## Pruebas automatizadas
 ```bash
 pytest
