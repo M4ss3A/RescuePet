@@ -1,4 +1,4 @@
-from sqlmodel import col, select
+from sqlmodel import col, or_, select
 
 from app.core.base_repository import BaseRepository
 from app.models import Adopcion, Publicacion, Seguimiento, SolicitudAdopcion
@@ -7,19 +7,21 @@ from app.models import Adopcion, Publicacion, Seguimiento, SolicitudAdopcion
 class AdopcionRepository(BaseRepository[Adopcion]):
     modelo = Adopcion
 
-    def listar(
-        self,
-        solicitud_id: int | None = None,
-        adoptante_id: int | None = None,
-        autor_publicacion_id: int | None = None,
-    ) -> list[Adopcion]:
-        consulta = select(Adopcion).join(SolicitudAdopcion).order_by(col(Adopcion.fecha_adopcion).desc())
+    def listar(self, solicitud_id: int | None = None, usuario_id: int | None = None) -> list[Adopcion]:
+        """Con usuario_id, devuelve las adopciones donde participa: como autor de la publicación
+        o como adoptante."""
+        consulta = (
+            select(Adopcion)
+            .join(SolicitudAdopcion)
+            .join(Publicacion)
+            .order_by(col(Adopcion.fecha_adopcion).desc())
+        )
         if solicitud_id is not None:
             consulta = consulta.where(col(Adopcion.solicitud_id) == solicitud_id)
-        if adoptante_id is not None:
-            consulta = consulta.where(col(SolicitudAdopcion.adoptante_id) == adoptante_id)
-        if autor_publicacion_id is not None:
-            consulta = consulta.join(Publicacion).where(col(Publicacion.autor_id) == autor_publicacion_id)
+        if usuario_id is not None:
+            consulta = consulta.where(
+                or_(col(Publicacion.autor_id) == usuario_id, col(SolicitudAdopcion.adoptante_id) == usuario_id)
+            )
         return list(self.session.exec(consulta).all())
 
 

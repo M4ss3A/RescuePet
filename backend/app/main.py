@@ -7,7 +7,7 @@ from app.core.config import settings
 from app.core.database import create_db_and_tables
 from app.core.errors import registrar_manejadores
 from app.core.seed import cargar_admin, cargar_roles
-from app.routers import (
+from app.routers import (   
     adopciones,
     animales,
     auth,

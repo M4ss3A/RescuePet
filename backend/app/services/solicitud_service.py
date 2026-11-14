@@ -53,6 +53,8 @@ class SolicitudService:
             publicacion = self.uow.publicaciones.obtener_vigente_de_animal(datos.animal_id)
             if publicacion is None or publicacion.estado != EstadoPublicacion.ACTIVA:
                 raise ReglaDeNegocio("El animal no está publicado para adopción")
+            if publicacion.autor_id == adoptante.id:
+                raise ReglaDeNegocio("No podés solicitar la adopción de un animal que publicaste")
             if self.uow.solicitudes.obtener_de_adoptante(publicacion.id, adoptante.id) is not None:  # type: ignore[arg-type]
                 raise Conflicto("Ya enviaste una solicitud para este animal")
 

@@ -45,12 +45,8 @@ class AdopcionService:
 
     def listar(self, usuario: UsuarioPublic, solicitud_id: int | None = None) -> list[AdopcionRead]:
         with self.uow:
-            if usuario.tiene_rol(RolNombre.ADMINISTRADOR):
-                adopciones = self.uow.adopciones.listar(solicitud_id=solicitud_id)
-            elif usuario.tiene_rol(RolNombre.RESCATISTA):
-                adopciones = self.uow.adopciones.listar(solicitud_id=solicitud_id, autor_publicacion_id=usuario.id)
-            else:
-                adopciones = self.uow.adopciones.listar(solicitud_id=solicitud_id, adoptante_id=usuario.id)
+            usuario_id = None if usuario.tiene_rol(RolNombre.ADMINISTRADOR) else usuario.id
+            adopciones = self.uow.adopciones.listar(solicitud_id=solicitud_id, usuario_id=usuario_id)
             return [self._a_respuesta(a) for a in adopciones]
 
     def obtener(self, adopcion_id: int, usuario: UsuarioPublic) -> AdopcionRead:
