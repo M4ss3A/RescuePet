@@ -40,7 +40,7 @@ function App() {
           <Route path="/rescatista/adopciones/:adopcionId/seguimiento/nuevo" element={<SeguimientoFormPage />} />
         </Route>
 
-        <Route element={<ProtectedRoute allowedRoles={['ADOPTANTE']} />}>
+        <Route element={<ProtectedRoute />}>
           <Route path="/solicitudes/nueva/:animalId" element={<SolicitudAdopcionFormPage />} />
           <Route path="/mis-solicitudes" element={<MisSolicitudesPage />} />
           <Route path="/mis-solicitudes/:solicitudId/adopcion" element={<AdopcionConfirmacionPage />} />
