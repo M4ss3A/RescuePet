@@ -17,6 +17,7 @@ import { SolicitudesRescatistaPage } from './pages/SolicitudesRescatistaPage'
 import { AdopcionConfirmacionPage } from './pages/AdopcionConfirmacionPage'
 import { SeguimientosRescatistaPage } from './pages/SeguimientosRescatistaPage'
 import { SeguimientoFormPage } from './pages/SeguimientoFormPage'
+import { EstadisticasPage } from './pages/EstadisticasPage'
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
           <Route path="/rescatista/solicitudes" element={<SolicitudesRescatistaPage />} />
           <Route path="/rescatista/seguimientos" element={<SeguimientosRescatistaPage />} />
           <Route path="/rescatista/adopciones/:adopcionId/seguimiento/nuevo" element={<SeguimientoFormPage />} />
+          <Route path="/rescatista/estadisticas" element={<EstadisticasPage />} />
         </Route>
 
         <Route element={<ProtectedRoute />}>
