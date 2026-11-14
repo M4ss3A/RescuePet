@@ -3,6 +3,7 @@ import { getAllSolicitudes, updateSolicitudEstado } from '../services/solicitudA
 import { getAnimalById, updateAnimal } from '../services/animalService'
 import { getUsuarioById } from '../services/authService'
 import { createAdopcion } from '../services/adopcionService'
+import { finalizarAsignacion } from '../services/hogarTransitoService'
 
 export function SolicitudesRescatistaPage() {
   const [, forceUpdate] = useState(0)
@@ -12,6 +13,7 @@ export function SolicitudesRescatistaPage() {
     updateSolicitudEstado(solicitudId, 'APROBADA')
     createAdopcion(solicitudId, new Date().toISOString().slice(0, 10))
     updateAnimal(animalId, { estado: 'ADOPTADO' })
+    finalizarAsignacion(animalId, new Date().toISOString().slice(0, 10))
     forceUpdate((n) => n + 1)
   }
 
