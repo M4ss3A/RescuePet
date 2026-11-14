@@ -27,10 +27,12 @@ export function SolicitudAdopcionFormPage() {
     )
   }
 
+  const solicitudAnimalId = animal.id
+
   function handleSubmit(e: FormEvent) {
     e.preventDefault()
     createSolicitud({
-      animalId: animal.id,
+      animalId: solicitudAnimalId,
       adoptanteId: usuario?.id ?? 0,
       tipoVivienda,
       tienePatio,
@@ -68,12 +70,14 @@ export function SolicitudAdopcionFormPage() {
         <label className="flex flex-col gap-1">
           <span className="font-body text-sm text-ink">Experiencia previa con animales</span>
           <textarea value={experienciaPrevia} onChange={(e) => setExperienciaPrevia(e.target.value)} rows={3} required minLength={5}
+            placeholder="Ej: Tuve un perro durante 8 años, sé de cuidados básicos y rutina de paseos."
             className="border border-surface-muted rounded-lg px-3 py-2 font-body text-sm" />
         </label>
 
         <label className="flex flex-col gap-1">
           <span className="font-body text-sm text-ink">¿Por qué querés adoptar a {animal.nombre}?</span>
           <textarea value={motivo} onChange={(e) => setMotivo(e.target.value)} required minLength={20} rows={3}
+            placeholder="Ej: Me interesa adoptar a este animal porque..."
             className="border border-surface-muted rounded-lg px-3 py-2 font-body text-sm" />
         </label>
 
