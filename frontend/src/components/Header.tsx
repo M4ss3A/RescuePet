@@ -21,7 +21,7 @@ export function Header() {
 
   return (
     <header className="bg-white border-b border-surface-muted">
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="w-full px-6 py-4 flex items-center justify-between">
         <Link to="/" className="font-heading font-bold text-xl text-primary-dark">
           RescuePet
         </Link>
@@ -31,7 +31,7 @@ export function Header() {
             <NavLink
               key={link.to}
               to={link.to}
-              className={({ isActive }) =>
+              className={({ isActive }: { isActive: boolean }) =>
                 `font-body text-sm ${isActive ? 'text-primary-dark font-medium' : 'text-ink'}`
               }
             >
@@ -42,7 +42,7 @@ export function Header() {
           {isAuthenticated ? (
             <>
               <span className="font-body text-sm text-ink/70">Hola, {usuario?.nombre}</span>
-              <button onClick={handleLogout} className="font-body text-sm text-accent">
+              <button onClick={handleLogout} className="font-body text-sm text-danger">
                 Cerrar sesión
               </button>
             </>
@@ -72,7 +72,7 @@ export function Header() {
           {isAuthenticated ? (
             <>
               <span className="font-body text-sm text-ink/70 py-2">Hola, {usuario?.nombre}</span>
-              <button onClick={handleLogout} className="font-body text-sm text-accent text-left py-2">
+              <button onClick={handleLogout} className="font-body text-sm text-danger text-left py-2">
                 Cerrar sesión
               </button>
             </>
