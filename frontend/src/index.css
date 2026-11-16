@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #17A79C;
-  --color-primary-dark: #0B6F68;
+  --color-primary: #6D3FA3;
+  --color-primary-dark: #4F2B7A;
   --color-ink: #16302E;
   --color-surface-muted: #F3F4F3;
-  --color-accent: #E2574C;
-  --color-accent-dark: #B23A30;
+  --color-accent: #17A79C;
+  --color-accent-dark: #0B6F68;
+  --color-danger: #E2574C;
 
   --font-heading: "Plus Jakarta Sans", sans-serif;
   --font-body: "Inter", sans-serif;
