@@ -79,6 +79,3 @@ GestorSalud = Annotated[
     Depends(require_role([RolNombre.RESCATISTA, RolNombre.HOGAR_TRANSITO, RolNombre.ADMINISTRADOR])),
 ]
 ResponsableHogar = Annotated[UsuarioPublic, Depends(require_role([RolNombre.HOGAR_TRANSITO]))]
-
-
-Adoptante = Annotated[UsuarioPublic, Depends(require_role([RolNombre.ADOPTANTE]))]

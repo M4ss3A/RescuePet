@@ -2,7 +2,7 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, status
 
-from app.core.deps import Adoptante, GestorAnimales, UsuarioActual
+from app.core.deps import GestorAnimales, UsuarioActual
 from app.core.uow import UnitOfWork
 from app.models.enums import EstadoSolicitud
 from app.schemas.adopcion import AdopcionRead
@@ -20,13 +20,13 @@ Servicio = Annotated[SolicitudService, Depends(get_solicitud_service)]
 
 
 @router.post("", response_model=SolicitudRead, status_code=status.HTTP_201_CREATED)
-def crear_solicitud(datos: SolicitudCreate, adoptante: Adoptante, service: Servicio):
-    return service.crear(datos, adoptante)
+def crear_solicitud(datos: SolicitudCreate, usuario: UsuarioActual, service: Servicio):
+    return service.crear(datos, usuario)
 
 
 @router.get("/mias", response_model=list[SolicitudRead])
-def mis_solicitudes(adoptante: Adoptante, service: Servicio):
-    return service.listar_mias(adoptante)
+def mis_solicitudes(usuario: UsuarioActual, service: Servicio):
+    return service.listar_mias(usuario)
 
 
 @router.get("", response_model=list[SolicitudRead])
@@ -40,8 +40,8 @@ def obtener_solicitud(solicitud_id: int, usuario: UsuarioActual, service: Servic
 
 
 @router.post("/{solicitud_id}/cancelar", response_model=SolicitudRead)
-def cancelar_solicitud(solicitud_id: int, adoptante: Adoptante, service: Servicio):
-    return service.cancelar(solicitud_id, adoptante)
+def cancelar_solicitud(solicitud_id: int, usuario: UsuarioActual, service: Servicio):
+    return service.cancelar(solicitud_id, usuario)
 
 
 @router.post("/{solicitud_id}/rechazar", response_model=SolicitudRead)

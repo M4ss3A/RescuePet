@@ -25,7 +25,7 @@ class SolicitudService:
 
     @staticmethod
     def _a_respuesta(solicitud: SolicitudAdopcion) -> SolicitudRead:
-        return SolicitudRead(**solicitud.model_dump(), animal_id=solicitud.publicacion.animal_id)
+        return SolicitudRead(**solicitud.model_dump(warnings=False), animal_id=solicitud.publicacion.animal_id)
 
     def _obtener_o_error(self, solicitud_id: int) -> SolicitudAdopcion:
         solicitud = self.uow.solicitudes.obtener_por_id(solicitud_id)
@@ -53,6 +53,8 @@ class SolicitudService:
             publicacion = self.uow.publicaciones.obtener_vigente_de_animal(datos.animal_id)
             if publicacion is None or publicacion.estado != EstadoPublicacion.ACTIVA:
                 raise ReglaDeNegocio("El animal no está publicado para adopción")
+            if publicacion.autor_id == adoptante.id:
+                raise ReglaDeNegocio("No podés solicitar la adopción de un animal que publicaste")
             if self.uow.solicitudes.obtener_de_adoptante(publicacion.id, adoptante.id) is not None:  # type: ignore[arg-type]
                 raise Conflicto("Ya enviaste una solicitud para este animal")
 
@@ -156,5 +158,5 @@ class SolicitudService:
                 self.uow.asignaciones.agregar(asignacion)
 
             return AdopcionRead(
-                **adopcion.model_dump(), animal_id=animal.id, adoptante_id=solicitud.adoptante_id  # type: ignore[arg-type]
+                **adopcion.model_dump(warnings=False), animal_id=animal.id, adoptante_id=solicitud.adoptante_id  # type: ignore[arg-type]
             )

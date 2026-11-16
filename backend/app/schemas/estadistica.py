@@ -1,31 +1,27 @@
 from app.schemas.base import CamelModel
 
 
-class ResumenAnimales(CamelModel):
-    total: int
-    por_estado: dict[str, int]
+class ConteoPorEstado(CamelModel):
+    estado: str
+    cantidad: int
 
 
-class ResumenSolicitudes(CamelModel):
-    total: int
-    por_estado: dict[str, int]
+class ConteoPorMes(CamelModel):
+    mes: str  # formato "AAAA-MM"
+    cantidad: int
 
 
-class ResumenAdopciones(CamelModel):
-    total: int
-    en_seguimiento: int
-    finalizadas: int
-    del_mes: int
-
-
-class ResumenHogares(CamelModel):
-    total: int
+class ResumenGeneral(CamelModel):
+    total_animales: int
     disponibles: int
-    animales_alojados: int
+    hogares_activos: int
+    animales_en_hogares: int
+    total_adopciones: int
 
 
 class Estadisticas(CamelModel):
-    animales: ResumenAnimales
-    solicitudes: ResumenSolicitudes
-    adopciones: ResumenAdopciones
-    hogares_transito: ResumenHogares
+
+    resumen: ResumenGeneral
+    animales_por_estado: list[ConteoPorEstado]
+    solicitudes_por_estado: list[ConteoPorEstado]
+    adopciones_por_mes: list[ConteoPorMes]
