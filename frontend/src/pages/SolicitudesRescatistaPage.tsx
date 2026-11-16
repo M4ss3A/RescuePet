@@ -50,7 +50,7 @@ export function SolicitudesRescatistaPage() {
                           Aprobar
                         </button>
                         <button onClick={() => handleRechazar(s.id)}
-                          className="font-body text-xs text-accent">
+                          className="font-body text-xs text-danger">
                           Rechazar
                         </button>
                       </>
