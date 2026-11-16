@@ -46,7 +46,7 @@ export function LoginPage() {
           />
         </label>
 
-        {error && <p className="font-body text-sm text-accent">{error}</p>}
+        {error && <p className="font-body text-sm text-danger">{error}</p>}
 
         <button
           type="submit"
