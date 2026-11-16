@@ -55,7 +55,7 @@ export function RescatistaDashboardPage() {
                 Editar
               </Link>
               {a.estado !== 'INACTIVO' && (
-                <button onClick={() => handleBaja(a.id)} className="font-body text-xs text-accent">
+                <button onClick={() => handleBaja(a.id)} className="font-body text-xs text-danger">
                   Dar de baja
                 </button>
               )}
